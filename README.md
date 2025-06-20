@@ -81,6 +81,7 @@ section of the platform can be deployed to its own subdomain.
 - `apps/bookings` – booking form served at `bookings.yourdomain.com`
 - `apps/rentals` – rental form served at `rentals.yourdomain.com`
 - `apps/main` – the main website
+- `apps/links` – smart link pages served at `links.yourdomain.com`
 
 Use the workspace scripts to run each app locally:
 
@@ -89,4 +90,5 @@ npm run dev:admin   # start admin app
 npm run dev:bookings
 npm run dev:rentals
 npm run dev:main
+npm run dev:links
 ```
