@@ -71,3 +71,26 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+
+## Monorepo apps
+
+This repo now exposes separate Vite apps under the `apps/` directory so that each
+section of the platform can be deployed to its own subdomain.
+
+Run `npm install` in the repository root to install all workspace dependencies.
+
+- `apps/admin` – dashboard served at `admin.yourdomain.com`
+- `apps/bookings` – booking form served at `bookings.yourdomain.com`
+- `apps/rentals` – rental form served at `rentals.yourdomain.com`
+- `apps/main` – the main website
+- `apps/links` – smart link pages served at `links.yourdomain.com`
+
+Use the workspace scripts to run each app locally:
+
+```bash
+npm run dev:admin   # start admin app
+npm run dev:bookings
+npm run dev:rentals
+npm run dev:main
+npm run dev:links
+```
