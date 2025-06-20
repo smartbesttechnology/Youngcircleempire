@@ -15,9 +15,9 @@ type Bundle = Tables<'bundles'>;
 
 const BundleManager = () => {
   const [bundles, setBundles] = useState<Bundle[]>([]);
-  const [services, setServices] = useState<any[]>([]);
-  const [addons, setAddons] = useState<any[]>([]);
-  const [equipment, setEquipment] = useState<any[]>([]);
+  const [services, setServices] = useState<Tables<'services'>[]>([]);
+  const [addons, setAddons] = useState<Tables<'addons'>[]>([]);
+  const [equipment, setEquipment] = useState<Tables<'equipment'>[]>([]);
   const [showForm, setShowForm] = useState(false);
   const [editingBundle, setEditingBundle] = useState<Bundle | null>(null);
   const [loading, setLoading] = useState(false);
@@ -175,7 +175,7 @@ const BundleManager = () => {
 
   const startEdit = (bundle: Bundle) => {
     // Helper function to safely convert Json to string array
-    const jsonToStringArray = (json: any): string[] => {
+    const jsonToStringArray = (json: unknown): string[] => {
       if (Array.isArray(json)) {
         return json.map(item => typeof item === 'string' ? item : String(item));
       }
