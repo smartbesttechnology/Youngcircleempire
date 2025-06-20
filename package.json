@@ -2,13 +2,21 @@
   "name": "vite_react_shadcn_ts",
   "private": true,
   "version": "0.0.0",
+  "workspaces": [
+    "apps/*"
+  ],
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "dev:admin": "npm --workspace apps/admin run dev",
+    "dev:bookings": "npm --workspace apps/bookings run dev",
+    "dev:rentals": "npm --workspace apps/rentals run dev",
+    "dev:main": "npm --workspace apps/main run dev",
+    "dev:links": "npm --workspace apps/links run dev"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
