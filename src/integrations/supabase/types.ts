@@ -396,6 +396,82 @@ export type Database = {
         }
         Relationships: []
       }
+      smart_links: {
+        Row: {
+          id: string
+          slug: string
+          title: string | null
+          description: string | null
+          image_url: string | null
+          theme: string | null
+          type: string | null
+          created_at: string | null
+          expires_at: string | null
+          enabled: boolean | null
+        }
+        Insert: {
+          id?: string
+          slug: string
+          title?: string | null
+          description?: string | null
+          image_url?: string | null
+          theme?: string | null
+          type?: string | null
+          created_at?: string | null
+          expires_at?: string | null
+          enabled?: boolean | null
+        }
+        Update: {
+          id?: string
+          slug?: string
+          title?: string | null
+          description?: string | null
+          image_url?: string | null
+          theme?: string | null
+          type?: string | null
+          created_at?: string | null
+          expires_at?: string | null
+          enabled?: boolean | null
+        }
+        Relationships: []
+      }
+      link_buttons: {
+        Row: {
+          id: string
+          smart_link_id: string
+          label: string
+          icon: string | null
+          target_url: string
+          order: number | null
+          enabled: boolean | null
+        }
+        Insert: {
+          id?: string
+          smart_link_id: string
+          label: string
+          icon?: string | null
+          target_url: string
+          order?: number | null
+          enabled?: boolean | null
+        }
+        Update: {
+          id?: string
+          smart_link_id?: string
+          label?: string
+          icon?: string | null
+          target_url?: string
+          order?: number | null
+          enabled?: boolean | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "link_buttons_smart_link_id_fkey"
+            columns: ["smart_link_id"]
+            referencedRelation: "smart_links"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       studio_info: {
         Row: {
           created_at: string | null

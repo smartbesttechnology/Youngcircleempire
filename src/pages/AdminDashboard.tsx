@@ -14,6 +14,7 @@ import AppSettingsManager from "@/components/admin/AppSettingsManager";
 import PaymentSettingsManager from "@/components/admin/PaymentSettingsManager";
 import BundleManager from "@/components/admin/BundleManager";
 import InvoiceManager from "@/components/admin/InvoiceManager";
+import SmartLinksManager from "@/components/admin/SmartLinksManager";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -68,7 +69,7 @@ const AdminDashboard = () => {
 
         {/* Dashboard Content */}
         <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-9 bg-slate-800">
+          <TabsList className="grid w-full grid-cols-10 bg-slate-800">
             <TabsTrigger value="overview" className="text-white">Overview</TabsTrigger>
             <TabsTrigger value="services" className="text-white">Services</TabsTrigger>
             <TabsTrigger value="equipment" className="text-white">Equipment</TabsTrigger>
@@ -77,6 +78,7 @@ const AdminDashboard = () => {
             <TabsTrigger value="rentals" className="text-white">Rentals</TabsTrigger>
             <TabsTrigger value="invoices" className="text-white">Invoices</TabsTrigger>
             <TabsTrigger value="payments" className="text-white">Payments</TabsTrigger>
+            <TabsTrigger value="links" className="text-white">Smart Links</TabsTrigger>
             <TabsTrigger value="settings" className="text-white">Settings</TabsTrigger>
           </TabsList>
 
@@ -195,6 +197,10 @@ const AdminDashboard = () => {
 
           <TabsContent value="payments">
             <PaymentSettingsManager />
+          </TabsContent>
+
+          <TabsContent value="links">
+            <SmartLinksManager />
           </TabsContent>
 
           <TabsContent value="settings">
