@@ -619,7 +619,7 @@ const BookingForm = () => {
                 <div className="text-white text-sm leading-relaxed space-y-4">
                   <div>
                     <h3 className="text-amber-400 font-semibold mb-2">
-                      YOUNG CIRCLE EMPIRE – BOOKING TERMS & CONDITIONS
+                      BOOKING TERMS & CONDITIONS
                     </h3>
                     <p className="text-gray-300">
                       These Terms & Conditions govern all studio session
