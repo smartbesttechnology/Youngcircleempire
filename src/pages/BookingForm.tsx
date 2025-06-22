@@ -37,8 +37,10 @@ const BookingForm = () => {
   const navigate = useNavigate();
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [formData, setFormData] = useState<BookingData>({
-    fullName: "",
+    firstName: "",
+    lastName: "",
     phone: "",
+    countryCode: "+234",
     email: "",
     contactMethod: "",
     services: [],
