@@ -432,16 +432,16 @@ const BookingForm = () => {
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="fullName" className="text-white">
-                    Full Name *
+                  <Label htmlFor="firstName" className="text-white">
+                    First Name *
                   </Label>
                   <Input
-                    id="fullName"
-                    value={formData.fullName}
+                    id="firstName"
+                    value={formData.firstName}
                     onChange={(e) =>
                       setFormData((prev) => ({
                         ...prev,
-                        fullName: e.target.value,
+                        firstName: e.target.value,
                       }))
                     }
                     className="bg-gray-800 border-gray-600 text-white"
@@ -449,16 +449,16 @@ const BookingForm = () => {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="phone" className="text-white">
-                    Phone Number *
+                  <Label htmlFor="lastName" className="text-white">
+                    Last Name *
                   </Label>
                   <Input
-                    id="phone"
-                    value={formData.phone}
+                    id="lastName"
+                    value={formData.lastName}
                     onChange={(e) =>
                       setFormData((prev) => ({
                         ...prev,
-                        phone: e.target.value,
+                        lastName: e.target.value,
                       }))
                     }
                     className="bg-gray-800 border-gray-600 text-white"
@@ -468,7 +468,7 @@ const BookingForm = () => {
               </div>
               <div>
                 <Label htmlFor="email" className="text-white">
-                  Email Address *
+                  Email *
                 </Label>
                 <Input
                   id="email"
@@ -483,6 +483,55 @@ const BookingForm = () => {
                   className="bg-gray-800 border-gray-600 text-white"
                   required
                 />
+              </div>
+              <div>
+                <Label className="text-white">WhatsApp Phone *</Label>
+                <div className="flex gap-2">
+                  <Select
+                    value={formData.countryCode}
+                    onValueChange={(value) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        countryCode: value,
+                      }))
+                    }
+                  >
+                    <SelectTrigger className="bg-gray-800 border-gray-600 text-white w-32">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="+234">🇳🇬 +234</SelectItem>
+                      <SelectItem value="+1">🇺🇸 +1</SelectItem>
+                      <SelectItem value="+44">🇬🇧 +44</SelectItem>
+                      <SelectItem value="+33">🇫🇷 +33</SelectItem>
+                      <SelectItem value="+49">🇩🇪 +49</SelectItem>
+                      <SelectItem value="+39">🇮🇹 +39</SelectItem>
+                      <SelectItem value="+34">🇪🇸 +34</SelectItem>
+                      <SelectItem value="+91">🇮🇳 +91</SelectItem>
+                      <SelectItem value="+86">🇨🇳 +86</SelectItem>
+                      <SelectItem value="+81">🇯🇵 +81</SelectItem>
+                      <SelectItem value="+82">🇰🇷 +82</SelectItem>
+                      <SelectItem value="+61">🇦🇺 +61</SelectItem>
+                      <SelectItem value="+55">🇧🇷 +55</SelectItem>
+                      <SelectItem value="+52">🇲🇽 +52</SelectItem>
+                      <SelectItem value="+27">🇿🇦 +27</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <Input
+                    id="phone"
+                    type="tel"
+                    value={formData.phone}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        phone: e.target.value,
+                      }))
+                    }
+                    placeholder="1234567890"
+                    className="bg-gray-800 border-gray-600 text-white flex-1"
+                    required
+                  />
+                </div>
               </div>
               <div>
                 <Label className="text-white">Preferred Contact Method</Label>
