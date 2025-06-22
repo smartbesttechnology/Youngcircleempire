@@ -553,7 +553,9 @@ const BookingForm = () => {
           {/* Terms & Conditions */}
           <Card className="bg-black/80 border-amber-500/30">
             <CardHeader>
-              <CardTitle className="text-white">Terms & Conditions</CardTitle>
+              <CardTitle className="text-white">
+                Young Circle Empire Terms & Conditions
+              </CardTitle>
             </CardHeader>
             <CardContent>
               {/* Scrollable Terms Container */}
