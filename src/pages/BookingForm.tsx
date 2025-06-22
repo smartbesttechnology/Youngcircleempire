@@ -429,7 +429,7 @@ const BookingForm = () => {
           <Card className="bg-black/80 border-amber-500/30">
             <CardHeader>
               <CardTitle className="text-white">
-                Step Into the Empire Complete Your Booking
+                Step Into the Empire – Complete Your Booking
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
