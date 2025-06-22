@@ -688,18 +688,6 @@ const BookingForm = () => {
                 </Label>
               </div>
 
-              {/* Affiliate Program Button */}
-              <div className="flex justify-center mb-6">
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  className="bg-gray-800 hover:bg-gray-700 border-gray-600 text-white px-6 py-2 text-sm rounded-full"
-                >
-                  Join the Affiliate Program
-                </Button>
-              </div>
-
               {/* Submit Button */}
               <Button
                 type="submit"
