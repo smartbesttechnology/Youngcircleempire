@@ -550,15 +550,157 @@ const BookingForm = () => {
             </Card>
           )}
 
-          {/* Terms & Submit */}
+          {/* Terms & Conditions */}
           <Card className="bg-black/80 border-amber-500/30">
-            <CardContent className="pt-6">
+            <CardHeader>
+              <CardTitle className="text-white">Terms & Conditions</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {/* Scrollable Terms Container */}
+              <div className="border border-gray-600 rounded-lg p-4 mb-6 max-h-[240px] overflow-y-auto bg-gray-900/50">
+                <div className="text-white text-sm leading-relaxed space-y-4">
+                  <div>
+                    <h3 className="text-amber-400 font-semibold mb-2">
+                      YOUNG CIRCLE EMPIRE – BOOKING TERMS & CONDITIONS
+                    </h3>
+                    <p className="text-gray-300">
+                      These Terms & Conditions govern all studio session
+                      bookings, including music recording, video shoots, Empire
+                      Mic Sessions, photoshoots, podcast sessions, and other
+                      creative bookings.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h4 className="text-amber-400 font-medium mb-2">
+                      1. Booking & Payments
+                    </h4>
+                    <ul className="space-y-1 text-gray-300 ml-4">
+                      <li>
+                        • All bookings must be made via our official channels or
+                        website.
+                      </li>
+                      <li>
+                        • A minimum 50% deposit is required to confirm your
+                        booking.
+                      </li>
+                      <li>
+                        • Balance must be paid before your session begins.
+                      </li>
+                      <li>• Bookings without deposit are not guaranteed.</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h4 className="text-amber-400 font-medium mb-2">
+                      2. Cancellations & Rescheduling
+                    </h4>
+                    <ul className="space-y-1 text-gray-300 ml-4">
+                      <li>
+                        • You may reschedule once if notice is given 48 hours in
+                        advance.
+                      </li>
+                      <li>
+                        • Cancellations less than 48 hours to your session will
+                        forfeit the deposit.
+                      </li>
+                      <li>• No-shows are non-refundable.</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h4 className="text-amber-400 font-medium mb-2">
+                      3. Studio Session Rules
+                    </h4>
+                    <ul className="space-y-1 text-gray-300 ml-4">
+                      <li>
+                        • Your time slot starts and ends at the scheduled hours
+                        regardless of your arrival time.
+                      </li>
+                      <li>
+                        • Arriving 15 minutes early is encouraged to set up.
+                      </li>
+                      <li>
+                        • You may extend your time if available, billed by the
+                        hour.
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h4 className="text-amber-400 font-medium mb-2">
+                      4. Guests & Conduct
+                    </h4>
+                    <ul className="space-y-1 text-gray-300 ml-4">
+                      <li>
+                        • Maximum guest number is defined per session type.
+                      </li>
+                      <li>
+                        • No fighting, illegal substances, or disruptive
+                        behavior allowed.
+                      </li>
+                      <li>
+                        • We reserve the right to end a session without refund
+                        if these rules are violated.
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h4 className="text-amber-400 font-medium mb-2">
+                      5. Use of Content
+                    </h4>
+                    <ul className="space-y-1 text-gray-300 ml-4">
+                      <li>
+                        • Unless agreed otherwise, you retain full ownership of
+                        your work.
+                      </li>
+                      <li>
+                        • We may request to post BTS or highlights for promotion
+                        unless you opt out beforehand.
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h4 className="text-amber-400 font-medium mb-2">
+                      6. Damage & Liability
+                    </h4>
+                    <ul className="space-y-1 text-gray-300 ml-4">
+                      <li>
+                        • You are responsible for any damage caused to studio
+                        property.
+                      </li>
+                      <li>
+                        • Young Circle Empire is not liable for loss of personal
+                        items or injury during your session.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* Terms Acceptance */}
               <div className="flex items-center space-x-2 mb-6">
                 <Checkbox id="terms" required />
                 <Label htmlFor="terms" className="text-white">
-                  I agree to the studio terms and conditions
+                  I accept the Terms and Conditions
                 </Label>
               </div>
+
+              {/* Affiliate Program Button */}
+              <div className="flex justify-center mb-6">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  className="bg-gray-800 hover:bg-gray-700 border-gray-600 text-white px-6 py-2 text-sm rounded-full"
+                >
+                  Join the Affiliate Program
+                </Button>
+              </div>
+
+              {/* Submit Button */}
               <Button
                 type="submit"
                 className="w-full bg-amber-600 hover:bg-amber-700 text-black font-bold py-3 text-lg"
