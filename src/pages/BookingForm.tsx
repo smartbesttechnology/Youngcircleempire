@@ -428,7 +428,9 @@ const BookingForm = () => {
           {/* Client Information */}
           <Card className="bg-black/80 border-amber-500/30">
             <CardHeader>
-              <CardTitle className="text-white">Client Information</CardTitle>
+              <CardTitle className="text-white">
+                Step Into the Empire Complete Your Booking
+              </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -486,7 +488,7 @@ const BookingForm = () => {
                 />
               </div>
               <div>
-                <Label className="text-white">WhatsApp Phone *</Label>
+                <Label className="text-white">Phone Number *</Label>
                 <div className="flex gap-2">
                   <Select
                     value={formData.countryCode}
