@@ -179,7 +179,8 @@ const BookingForm = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (
-      !formData.fullName ||
+      !formData.firstName ||
+      !formData.lastName ||
       !formData.phone ||
       !formData.email ||
       formData.services.length === 0
