@@ -17,8 +17,10 @@ import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import BookingConfirmationModal from "@/components/BookingConfirmationModal";
 interface BookingData {
-  fullName: string;
+  firstName: string;
+  lastName: string;
   phone: string;
+  countryCode: string;
   email: string;
   contactMethod: string;
   services: string[];
