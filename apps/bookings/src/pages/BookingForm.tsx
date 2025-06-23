@@ -115,28 +115,6 @@ const BookingForm = () => {
       info: "Event-based pricing",
     },
   ];
-  const addons = [
-    {
-      id: "bts-video",
-      name: "Behind-the-Scenes Video",
-      info: "Available upon request",
-    },
-    {
-      id: "extra-lighting",
-      name: "Extra Lighting",
-      info: "Equipment rental rates apply",
-    },
-    {
-      id: "changing-room",
-      name: "Changing Room Access",
-      info: "Additional amenity available",
-    },
-    {
-      id: "private-room",
-      name: "Private Room (Overnight)",
-      info: "Extended access available",
-    },
-  ];
 
   const handleServiceChange = (serviceId: string, checked: boolean) => {
     setFormData((prev) => ({
@@ -146,14 +124,7 @@ const BookingForm = () => {
         : prev.services.filter((id) => id !== serviceId),
     }));
   };
-  const handleAddonChange = (addonId: string, checked: boolean) => {
-    setFormData((prev) => ({
-      ...prev,
-      addons: checked
-        ? [...prev.addons, addonId]
-        : prev.addons.filter((id) => id !== addonId),
-    }));
-  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (
@@ -465,37 +436,6 @@ const BookingForm = () => {
             </CardContent>
           </Card>
 
-          {/* Add-ons */}
-          <Card className="bg-black/80 border-amber-500/30">
-            <CardHeader>
-              <CardTitle className="text-white">Add-ons</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {addons.map((addon) => (
-                  <div
-                    key={addon.id}
-                    className="flex items-center space-x-2 p-3 bg-gray-800/50 rounded-lg"
-                  >
-                    <Checkbox
-                      id={addon.id}
-                      checked={formData.addons.includes(addon.id)}
-                      onCheckedChange={(checked) =>
-                        handleAddonChange(addon.id, checked as boolean)
-                      }
-                    />
-                    <Label htmlFor={addon.id} className="text-white flex-1">
-                      {addon.name}
-                      <span className="text-amber-400 block text-sm">
-                        {addon.info}
-                      </span>
-                    </Label>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
           {/* Pricing Information */}
           {hasSelectedServices && (
             <Card className="bg-black/80 border-amber-500/30">
@@ -556,7 +496,6 @@ const BookingForm = () => {
           onConfirm={handleConfirmBooking}
           bookingData={formData}
           services={services}
-          addons={addons}
         />
       </div>
     </div>
