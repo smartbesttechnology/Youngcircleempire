@@ -175,6 +175,10 @@ const BookingForm = () => {
               <CardTitle className="text-white text-2xl">
                 Step Into the Empire – Complete Your Booking
               </CardTitle>
+              <p className="text-amber-400">
+                Select your desired services below, then complete your
+                information
+              </p>
             </CardHeader>
             <CardContent>
               {[
@@ -226,7 +230,10 @@ const BookingForm = () => {
 
           {/* Client Information - Restructured to match screenshot */}
           <Card className="bg-black/80 border-amber-500/30">
-            <CardContent className="pt-6 space-y-4">
+            <CardHeader>
+              <CardTitle className="text-white">Your Information</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
               {/* First Name and Last Name */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
