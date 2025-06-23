@@ -28,19 +28,12 @@ interface Service {
   info: string;
 }
 
-interface Addon {
-  id: string;
-  name: string;
-  info: string;
-}
-
 interface BookingConfirmationModalProps {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
   bookingData: BookingData;
   services: Service[];
-  addons: Addon[];
 }
 
 const BookingConfirmationModal = ({
@@ -49,13 +42,9 @@ const BookingConfirmationModal = ({
   onConfirm,
   bookingData,
   services,
-  addons,
 }: BookingConfirmationModalProps) => {
   const selectedServices = services.filter((service) =>
     bookingData.services.includes(service.id),
-  );
-  const selectedAddons = addons.filter((addon) =>
-    bookingData.addons.includes(addon.id),
   );
 
   return (
@@ -108,21 +97,6 @@ const BookingConfirmationModal = ({
                 ))}
               </div>
             </div>
-
-            {/* Selected Add-ons */}
-            {selectedAddons.length > 0 && (
-              <div>
-                <h3 className="text-amber-400 font-semibold mb-2">Add-ons</h3>
-                <div className="space-y-2">
-                  {selectedAddons.map((addon) => (
-                    <div key={addon.id} className="text-sm">
-                      <div className="font-medium">{addon.name}</div>
-                      <div className="text-amber-400 text-xs">{addon.info}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
 
             {/* Booking Details */}
             <div>
