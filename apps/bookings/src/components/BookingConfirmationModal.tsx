@@ -8,18 +8,17 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface BookingData {
-  fullName: string;
+  firstName: string;
+  lastName: string;
   phone: string;
   email: string;
   contactMethod: string;
   services: string[];
-  addons: string[];
   date: string;
   time: string;
   duration: string;
   people: string;
   notes: string;
-  paymentMethod: string;
 }
 
 interface Service {
@@ -66,7 +65,7 @@ const BookingConfirmationModal = ({
               <div className="space-y-1 text-sm">
                 <p>
                   <span className="text-gray-400">Name:</span>{" "}
-                  {bookingData.fullName}
+                  {bookingData.firstName} {bookingData.lastName}
                 </p>
                 <p>
                   <span className="text-gray-400">Phone:</span>{" "}

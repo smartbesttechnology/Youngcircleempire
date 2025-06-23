@@ -9,8 +9,9 @@ const AppBookings = () => (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<BookingForm />} />
+        <Route path="/bookings" element={<BookingForm />} />
         <Route path="/thank-you" element={<ThankYou />} />
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<BookingForm />} />
       </Routes>
     </BrowserRouter>
   </AppProviders>

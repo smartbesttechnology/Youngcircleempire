@@ -16,40 +16,40 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import BookingConfirmationModal from "@/components/BookingConfirmationModal";
+
 interface BookingData {
-  fullName: string;
+  firstName: string;
+  lastName: string;
   phone: string;
   email: string;
   contactMethod: string;
   services: string[];
-  addons: string[];
   date: string;
   time: string;
   duration: string;
   people: string;
   notes: string;
-  paymentMethod: string;
 }
+
 const BookingForm = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [formData, setFormData] = useState<BookingData>({
-    fullName: "",
+    firstName: "",
+    lastName: "",
     phone: "",
     email: "",
     contactMethod: "",
     services: [],
-    addons: [],
     date: "",
     time: "",
     duration: "",
     people: "",
     notes: "",
-    paymentMethod: "",
   });
 
-  // Mock data - in real app, this would come from Supabase
+  // Service data
   const services = [
     // Studio Sessions
     {
@@ -127,8 +127,10 @@ const BookingForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
     if (
-      !formData.fullName ||
+      !formData.firstName ||
+      !formData.lastName ||
       !formData.phone ||
       !formData.email ||
       formData.services.length === 0
@@ -139,16 +141,19 @@ const BookingForm = () => {
       });
       return;
     }
+
     setShowConfirmation(true);
   };
+
   const handleConfirmBooking = async () => {
     try {
-      // Here you would save to Supabase and send emails
       console.log("Booking confirmed:", formData);
+
       toast({
         title: "Booking Confirmed!",
         description: "We'll be in touch soon to finalize your session.",
       });
+
       setShowConfirmation(false);
       navigate("/thank-you");
     } catch (error) {
@@ -159,127 +164,17 @@ const BookingForm = () => {
       });
     }
   };
-  const hasSelectedServices = formData.services.length > 0;
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-amber-900">
       <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <img
-            src="https://i.postimg.cc/XYtQC54J/YCE-LOGO-ICON.png"
-            alt="Young Circle Empire"
-            className="mx-auto mb-6 h-20 w-auto"
-          />
-          <h1 className="text-4xl font-bold text-white mb-4">
-            Empire Bookings
-          </h1>
-          <p className="text-amber-400 max-w-3xl mx-auto text-lg">
-            Where creativity meets class. Whether you're pulling up for a mic
-            drop moment, a cinematic shoot, or a full-blown artist experience,
-            you're in the right place. Let's make something legendary.
-          </p>
-        </div>
-
         <form onSubmit={handleSubmit} className="max-w-4xl mx-auto space-y-8">
-          {/* Client Information */}
+          {/* Service Selection - First as requested */}
           <Card className="bg-black/80 border-amber-500/30">
             <CardHeader>
-              <CardTitle className="text-white">Client Information</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="fullName" className="text-white">
-                    Full Name *
-                  </Label>
-                  <Input
-                    id="fullName"
-                    value={formData.fullName}
-                    onChange={(e) =>
-                      setFormData((prev) => ({
-                        ...prev,
-                        fullName: e.target.value,
-                      }))
-                    }
-                    className="bg-gray-800 border-gray-600 text-white"
-                    required
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="phone" className="text-white">
-                    Phone Number *
-                  </Label>
-                  <Input
-                    id="phone"
-                    value={formData.phone}
-                    onChange={(e) =>
-                      setFormData((prev) => ({
-                        ...prev,
-                        phone: e.target.value,
-                      }))
-                    }
-                    className="bg-gray-800 border-gray-600 text-white"
-                    required
-                  />
-                </div>
-              </div>
-              <div>
-                <Label htmlFor="email" className="text-white">
-                  Email Address *
-                </Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) =>
-                    setFormData((prev) => ({
-                      ...prev,
-                      email: e.target.value,
-                    }))
-                  }
-                  className="bg-gray-800 border-gray-600 text-white"
-                  required
-                />
-              </div>
-              <div>
-                <Label className="text-white">Preferred Contact Method</Label>
-                <RadioGroup
-                  value={formData.contactMethod}
-                  onValueChange={(value) =>
-                    setFormData((prev) => ({
-                      ...prev,
-                      contactMethod: value,
-                    }))
-                  }
-                  className="flex flex-row space-x-6 mt-2"
-                >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="whatsapp" id="whatsapp" />
-                    <Label htmlFor="whatsapp" className="text-white">
-                      WhatsApp
-                    </Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="call" id="call" />
-                    <Label htmlFor="call" className="text-white">
-                      Call
-                    </Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="email" id="email" />
-                    <Label htmlFor="email" className="text-white">
-                      Email
-                    </Label>
-                  </div>
-                </RadioGroup>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Service Selection */}
-          <Card className="bg-black/80 border-amber-500/30">
-            <CardHeader>
-              <CardTitle className="text-white">Service Selection</CardTitle>
+              <CardTitle className="text-white text-2xl">
+                Step Into the Empire – Complete Your Booking
+              </CardTitle>
             </CardHeader>
             <CardContent>
               {[
@@ -329,6 +224,131 @@ const BookingForm = () => {
             </CardContent>
           </Card>
 
+          {/* Client Information - Restructured to match screenshot */}
+          <Card className="bg-black/80 border-amber-500/30">
+            <CardContent className="pt-6 space-y-4">
+              {/* First Name and Last Name */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="firstName" className="text-white">
+                    First Name *
+                  </Label>
+                  <Input
+                    id="firstName"
+                    value={formData.firstName}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        firstName: e.target.value,
+                      }))
+                    }
+                    className="bg-gray-800 border-gray-600 text-white"
+                    required
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="lastName" className="text-white">
+                    Last Name *
+                  </Label>
+                  <Input
+                    id="lastName"
+                    value={formData.lastName}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        lastName: e.target.value,
+                      }))
+                    }
+                    className="bg-gray-800 border-gray-600 text-white"
+                    required
+                  />
+                </div>
+              </div>
+
+              {/* Email */}
+              <div>
+                <Label htmlFor="email" className="text-white">
+                  Email *
+                </Label>
+                <Input
+                  id="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) =>
+                    setFormData((prev) => ({ ...prev, email: e.target.value }))
+                  }
+                  className="bg-gray-800 border-gray-600 text-white"
+                  required
+                />
+              </div>
+
+              {/* Phone Number with Country Code */}
+              <div>
+                <Label htmlFor="phone" className="text-white">
+                  Phone Number *
+                </Label>
+                <div className="flex gap-2">
+                  <Select defaultValue="NG">
+                    <SelectTrigger className="w-32 bg-gray-800 border-gray-600 text-white">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="NG">🇳🇬 +234</SelectItem>
+                      <SelectItem value="US">🇺🇸 +1</SelectItem>
+                      <SelectItem value="UK">🇬🇧 +44</SelectItem>
+                      <SelectItem value="CA">🇨🇦 +1</SelectItem>
+                      <SelectItem value="AU">🇦🇺 +61</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <Input
+                    id="phone"
+                    value={formData.phone}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        phone: e.target.value,
+                      }))
+                    }
+                    className="flex-1 bg-gray-800 border-gray-600 text-white"
+                    placeholder="1234567890"
+                    required
+                  />
+                </div>
+              </div>
+
+              {/* Preferred Contact Method */}
+              <div>
+                <Label className="text-white">Preferred Contact Method</Label>
+                <RadioGroup
+                  value={formData.contactMethod}
+                  onValueChange={(value) =>
+                    setFormData((prev) => ({ ...prev, contactMethod: value }))
+                  }
+                  className="flex flex-row space-x-6 mt-2"
+                >
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="whatsapp" id="whatsapp" />
+                    <Label htmlFor="whatsapp" className="text-white">
+                      WhatsApp
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="call" id="call" />
+                    <Label htmlFor="call" className="text-white">
+                      Call
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="email" id="email" />
+                    <Label htmlFor="email" className="text-white">
+                      Email
+                    </Label>
+                  </div>
+                </RadioGroup>
+              </div>
+            </CardContent>
+          </Card>
+
           {/* Booking Details */}
           <Card className="bg-black/80 border-amber-500/30">
             <CardHeader>
@@ -345,10 +365,7 @@ const BookingForm = () => {
                     type="date"
                     value={formData.date}
                     onChange={(e) =>
-                      setFormData((prev) => ({
-                        ...prev,
-                        date: e.target.value,
-                      }))
+                      setFormData((prev) => ({ ...prev, date: e.target.value }))
                     }
                     className="bg-gray-800 border-gray-600 text-white"
                   />
@@ -362,10 +379,7 @@ const BookingForm = () => {
                     type="time"
                     value={formData.time}
                     onChange={(e) =>
-                      setFormData((prev) => ({
-                        ...prev,
-                        time: e.target.value,
-                      }))
+                      setFormData((prev) => ({ ...prev, time: e.target.value }))
                     }
                     className="bg-gray-800 border-gray-600 text-white"
                   />
@@ -379,10 +393,7 @@ const BookingForm = () => {
                   <Select
                     value={formData.duration}
                     onValueChange={(value) =>
-                      setFormData((prev) => ({
-                        ...prev,
-                        duration: value,
-                      }))
+                      setFormData((prev) => ({ ...prev, duration: value }))
                     }
                   >
                     <SelectTrigger className="bg-gray-800 border-gray-600 text-white">
@@ -424,10 +435,7 @@ const BookingForm = () => {
                   id="notes"
                   value={formData.notes}
                   onChange={(e) =>
-                    setFormData((prev) => ({
-                      ...prev,
-                      notes: e.target.value,
-                    }))
+                    setFormData((prev) => ({ ...prev, notes: e.target.value }))
                   }
                   className="bg-gray-800 border-gray-600 text-white"
                   placeholder="Tell us about your vision, concept, or any special requirements..."
@@ -436,53 +444,131 @@ const BookingForm = () => {
             </CardContent>
           </Card>
 
-          {/* Pricing Information */}
-          {hasSelectedServices && (
-            <Card className="bg-black/80 border-amber-500/30">
-              <CardHeader>
-                <CardTitle className="text-white">
-                  Pricing & Next Steps
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="text-white">
-                  <p className="text-amber-400 font-semibold mb-2">
-                    💰 Pricing Details
-                  </p>
-                  <p className="text-gray-300 mb-4">
-                    Our pricing varies based on your specific needs, duration,
-                    and package selection. We'll provide you with a detailed
-                    quote after reviewing your booking request.
-                  </p>
+          {/* Terms & Conditions - Exact text as provided */}
+          <Card className="bg-black/80 border-amber-500/30">
+            <CardHeader>
+              <CardTitle className="text-white">
+                Young Circle Empire Terms & Conditions
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="text-white text-sm space-y-4">
+                <p>
+                  These Terms & Conditions govern all studio session bookings,
+                  including music recording, video shoots, Empire Mic Sessions,
+                  photoshoots, podcast sessions, and other creative bookings.
+                </p>
 
-                  <p className="text-amber-400 font-semibold mb-2">
-                    📞 What Happens Next
-                  </p>
-                  <ul className="text-gray-300 space-y-2">
-                    <li>• We'll review your request within 24 hours</li>
-                    <li>• Our team will contact you with pricing details</li>
-                    <li>• We'll schedule your session once confirmed</li>
+                <div>
+                  <h4 className="text-amber-400 font-semibold">
+                    1. Booking & Payments
+                  </h4>
+                  <ul className="list-disc list-inside space-y-1 text-gray-300">
                     <li>
-                      • Payment options will be discussed during confirmation
+                      All bookings must be made via our official channels or
+                      website.
+                    </li>
+                    <li>
+                      A minimum 50% deposit is required to confirm your booking.
+                    </li>
+                    <li>Balance must be paid before your session begins.</li>
+                    <li>Bookings without deposit are not guaranteed.</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="text-amber-400 font-semibold">
+                    2. Cancellations & Rescheduling
+                  </h4>
+                  <ul className="list-disc list-inside space-y-1 text-gray-300">
+                    <li>
+                      You may reschedule once if notice is given 48 hours in
+                      advance.
+                    </li>
+                    <li>
+                      Cancellations less than 48 hours to your session will
+                      forfeit the deposit.
+                    </li>
+                    <li>No-shows are non-refundable.</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="text-amber-400 font-semibold">
+                    3. Studio Session Rules
+                  </h4>
+                  <ul className="list-disc list-inside space-y-1 text-gray-300">
+                    <li>
+                      Your time slot starts and ends at the scheduled hours
+                      regardless of your arrival time.
+                    </li>
+                    <li>Arriving 15 minutes early is encouraged to set up.</li>
+                    <li>
+                      You may extend your time if available, billed by the hour.
                     </li>
                   </ul>
                 </div>
-              </CardContent>
-            </Card>
-          )}
 
-          {/* Terms & Submit */}
-          <Card className="bg-black/80 border-amber-500/30">
-            <CardContent className="pt-6">
-              <div className="flex items-center space-x-2 mb-6">
+                <div>
+                  <h4 className="text-amber-400 font-semibold">
+                    4. Guests & Conduct
+                  </h4>
+                  <ul className="list-disc list-inside space-y-1 text-gray-300">
+                    <li>Maximum guest number is defined per session type.</li>
+                    <li>
+                      No fighting, illegal substances, or disruptive behavior
+                      allowed.
+                    </li>
+                    <li>
+                      We reserve the right to end a session without refund if
+                      these rules are violated.
+                    </li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="text-amber-400 font-semibold">
+                    5. Use of Content
+                  </h4>
+                  <ul className="list-disc list-inside space-y-1 text-gray-300">
+                    <li>
+                      Unless agreed otherwise, you retain full ownership of your
+                      work.
+                    </li>
+                    <li>
+                      We may request to post BTS or highlights for promotion
+                      unless you opt out beforehand.
+                    </li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="text-amber-400 font-semibold">
+                    6. Damage & Liability
+                  </h4>
+                  <ul className="list-disc list-inside space-y-1 text-gray-300">
+                    <li>
+                      You are responsible for any damage caused to studio
+                      property.
+                    </li>
+                    <li>
+                      Young Circle Empire is not liable for loss of personal
+                      items or injury during your session.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-2 mt-6">
                 <Checkbox id="terms" required />
                 <Label htmlFor="terms" className="text-white">
-                  I agree to the studio terms and conditions
+                  I accept the Terms and Conditions
                 </Label>
               </div>
+
               <Button
                 type="submit"
-                className="w-full bg-amber-600 hover:bg-amber-700 text-black font-bold py-3 text-lg"
+                className="w-full bg-amber-600 hover:bg-amber-700 text-black font-bold py-3 text-lg mt-6"
               >
                 Submit Booking Request
               </Button>
@@ -501,4 +587,5 @@ const BookingForm = () => {
     </div>
   );
 };
+
 export default BookingForm;
