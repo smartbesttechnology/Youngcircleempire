@@ -168,8 +168,25 @@ const BookingForm = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-amber-900">
       <div className="container mx-auto px-4 py-8">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <img
+            src="https://i.postimg.cc/XYtQC54J/YCE-LOGO-ICON.png"
+            alt="Young Circle Empire"
+            className="mx-auto mb-6 h-20 w-auto"
+          />
+          <h1 className="text-4xl font-bold text-white mb-4">
+            Empire Bookings
+          </h1>
+          <p className="text-amber-400 max-w-3xl mx-auto text-lg">
+            Where creativity meets class. Whether you're pulling up for a mic
+            drop moment, a cinematic shoot, or a full-blown artist experience,
+            you're in the right place. Let's make something legendary.
+          </p>
+        </div>
+
         <form onSubmit={handleSubmit} className="max-w-4xl mx-auto space-y-8">
-          {/* Service Selection - First as requested */}
+          {/* Service Selection */}
           <Card className="bg-black/80 border-amber-500/30">
             <CardHeader>
               <CardTitle className="text-white text-2xl">
@@ -228,7 +245,102 @@ const BookingForm = () => {
             </CardContent>
           </Card>
 
-          {/* Client Information - Restructured to match screenshot */}
+          {/* Booking Details - Moved up */}
+          <Card className="bg-black/80 border-amber-500/30">
+            <CardHeader>
+              <CardTitle className="text-white">Booking Details</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="date" className="text-white">
+                    Preferred Date
+                  </Label>
+                  <Input
+                    id="date"
+                    type="date"
+                    value={formData.date}
+                    onChange={(e) =>
+                      setFormData((prev) => ({ ...prev, date: e.target.value }))
+                    }
+                    className="bg-gray-800 border-gray-600 text-white"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="time" className="text-white">
+                    Start Time
+                  </Label>
+                  <Input
+                    id="time"
+                    type="time"
+                    value={formData.time}
+                    onChange={(e) =>
+                      setFormData((prev) => ({ ...prev, time: e.target.value }))
+                    }
+                    className="bg-gray-800 border-gray-600 text-white"
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="duration" className="text-white">
+                    Duration
+                  </Label>
+                  <Select
+                    value={formData.duration}
+                    onValueChange={(value) =>
+                      setFormData((prev) => ({ ...prev, duration: value }))
+                    }
+                  >
+                    <SelectTrigger className="bg-gray-800 border-gray-600 text-white">
+                      <SelectValue placeholder="Select duration" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="1-hour">1 hour</SelectItem>
+                      <SelectItem value="2-hours">2 hours</SelectItem>
+                      <SelectItem value="3-hours">3 hours</SelectItem>
+                      <SelectItem value="4-hours">4 hours</SelectItem>
+                      <SelectItem value="full-day">Full Day</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="people" className="text-white">
+                    Number of People
+                  </Label>
+                  <Input
+                    id="people"
+                    type="number"
+                    value={formData.people}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        people: e.target.value,
+                      }))
+                    }
+                    className="bg-gray-800 border-gray-600 text-white"
+                    min="1"
+                  />
+                </div>
+              </div>
+              <div>
+                <Label htmlFor="notes" className="text-white">
+                  Notes / Concepts
+                </Label>
+                <Textarea
+                  id="notes"
+                  value={formData.notes}
+                  onChange={(e) =>
+                    setFormData((prev) => ({ ...prev, notes: e.target.value }))
+                  }
+                  className="bg-gray-800 border-gray-600 text-white"
+                  placeholder="Tell us about your vision, concept, or any special requirements..."
+                />
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Your Information - Moved down */}
           <Card className="bg-black/80 border-amber-500/30">
             <CardHeader>
               <CardTitle className="text-white">Your Information</CardTitle>
@@ -356,217 +468,130 @@ const BookingForm = () => {
             </CardContent>
           </Card>
 
-          {/* Booking Details */}
-          <Card className="bg-black/80 border-amber-500/30">
-            <CardHeader>
-              <CardTitle className="text-white">Booking Details</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="date" className="text-white">
-                    Preferred Date
-                  </Label>
-                  <Input
-                    id="date"
-                    type="date"
-                    value={formData.date}
-                    onChange={(e) =>
-                      setFormData((prev) => ({ ...prev, date: e.target.value }))
-                    }
-                    className="bg-gray-800 border-gray-600 text-white"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="time" className="text-white">
-                    Start Time
-                  </Label>
-                  <Input
-                    id="time"
-                    type="time"
-                    value={formData.time}
-                    onChange={(e) =>
-                      setFormData((prev) => ({ ...prev, time: e.target.value }))
-                    }
-                    className="bg-gray-800 border-gray-600 text-white"
-                  />
-                </div>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="duration" className="text-white">
-                    Duration
-                  </Label>
-                  <Select
-                    value={formData.duration}
-                    onValueChange={(value) =>
-                      setFormData((prev) => ({ ...prev, duration: value }))
-                    }
-                  >
-                    <SelectTrigger className="bg-gray-800 border-gray-600 text-white">
-                      <SelectValue placeholder="Select duration" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="1-hour">1 hour</SelectItem>
-                      <SelectItem value="2-hours">2 hours</SelectItem>
-                      <SelectItem value="3-hours">3 hours</SelectItem>
-                      <SelectItem value="4-hours">4 hours</SelectItem>
-                      <SelectItem value="full-day">Full Day</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <Label htmlFor="people" className="text-white">
-                    Number of People
-                  </Label>
-                  <Input
-                    id="people"
-                    type="number"
-                    value={formData.people}
-                    onChange={(e) =>
-                      setFormData((prev) => ({
-                        ...prev,
-                        people: e.target.value,
-                      }))
-                    }
-                    className="bg-gray-800 border-gray-600 text-white"
-                    min="1"
-                  />
-                </div>
-              </div>
-              <div>
-                <Label htmlFor="notes" className="text-white">
-                  Notes / Concepts
-                </Label>
-                <Textarea
-                  id="notes"
-                  value={formData.notes}
-                  onChange={(e) =>
-                    setFormData((prev) => ({ ...prev, notes: e.target.value }))
-                  }
-                  className="bg-gray-800 border-gray-600 text-white"
-                  placeholder="Tell us about your vision, concept, or any special requirements..."
-                />
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Terms & Conditions - Exact text as provided */}
+          {/* Terms & Conditions - Scrollable with border */}
           <Card className="bg-black/80 border-amber-500/30">
             <CardHeader>
               <CardTitle className="text-white">
                 Young Circle Empire Terms & Conditions
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="text-white text-sm space-y-4">
-                <p>
-                  These Terms & Conditions govern all studio session bookings,
-                  including music recording, video shoots, Empire Mic Sessions,
-                  photoshoots, podcast sessions, and other creative bookings.
-                </p>
+            <CardContent>
+              {/* Scrollable Terms Container */}
+              <div className="border border-gray-600 rounded-lg p-4 max-h-60 overflow-y-auto bg-gray-900/50 mb-6">
+                <div className="text-white text-sm space-y-4">
+                  <p>
+                    These Terms & Conditions govern all studio session bookings,
+                    including music recording, video shoots, Empire Mic
+                    Sessions, photoshoots, podcast sessions, and other creative
+                    bookings.
+                  </p>
 
-                <div>
-                  <h4 className="text-amber-400 font-semibold">
-                    1. Booking & Payments
-                  </h4>
-                  <ul className="list-disc list-inside space-y-1 text-gray-300">
-                    <li>
-                      All bookings must be made via our official channels or
-                      website.
-                    </li>
-                    <li>
-                      A minimum 50% deposit is required to confirm your booking.
-                    </li>
-                    <li>Balance must be paid before your session begins.</li>
-                    <li>Bookings without deposit are not guaranteed.</li>
-                  </ul>
-                </div>
+                  <div>
+                    <h4 className="text-amber-400 font-semibold">
+                      1. Booking & Payments
+                    </h4>
+                    <ul className="list-disc list-inside space-y-1 text-gray-300 mt-2">
+                      <li>
+                        All bookings must be made via our official channels or
+                        website.
+                      </li>
+                      <li>
+                        A minimum 50% deposit is required to confirm your
+                        booking.
+                      </li>
+                      <li>Balance must be paid before your session begins.</li>
+                      <li>Bookings without deposit are not guaranteed.</li>
+                    </ul>
+                  </div>
 
-                <div>
-                  <h4 className="text-amber-400 font-semibold">
-                    2. Cancellations & Rescheduling
-                  </h4>
-                  <ul className="list-disc list-inside space-y-1 text-gray-300">
-                    <li>
-                      You may reschedule once if notice is given 48 hours in
-                      advance.
-                    </li>
-                    <li>
-                      Cancellations less than 48 hours to your session will
-                      forfeit the deposit.
-                    </li>
-                    <li>No-shows are non-refundable.</li>
-                  </ul>
-                </div>
+                  <div>
+                    <h4 className="text-amber-400 font-semibold">
+                      2. Cancellations & Rescheduling
+                    </h4>
+                    <ul className="list-disc list-inside space-y-1 text-gray-300 mt-2">
+                      <li>
+                        You may reschedule once if notice is given 48 hours in
+                        advance.
+                      </li>
+                      <li>
+                        Cancellations less than 48 hours to your session will
+                        forfeit the deposit.
+                      </li>
+                      <li>No-shows are non-refundable.</li>
+                    </ul>
+                  </div>
 
-                <div>
-                  <h4 className="text-amber-400 font-semibold">
-                    3. Studio Session Rules
-                  </h4>
-                  <ul className="list-disc list-inside space-y-1 text-gray-300">
-                    <li>
-                      Your time slot starts and ends at the scheduled hours
-                      regardless of your arrival time.
-                    </li>
-                    <li>Arriving 15 minutes early is encouraged to set up.</li>
-                    <li>
-                      You may extend your time if available, billed by the hour.
-                    </li>
-                  </ul>
-                </div>
+                  <div>
+                    <h4 className="text-amber-400 font-semibold">
+                      3. Studio Session Rules
+                    </h4>
+                    <ul className="list-disc list-inside space-y-1 text-gray-300 mt-2">
+                      <li>
+                        Your time slot starts and ends at the scheduled hours
+                        regardless of your arrival time.
+                      </li>
+                      <li>
+                        Arriving 15 minutes early is encouraged to set up.
+                      </li>
+                      <li>
+                        You may extend your time if available, billed by the
+                        hour.
+                      </li>
+                    </ul>
+                  </div>
 
-                <div>
-                  <h4 className="text-amber-400 font-semibold">
-                    4. Guests & Conduct
-                  </h4>
-                  <ul className="list-disc list-inside space-y-1 text-gray-300">
-                    <li>Maximum guest number is defined per session type.</li>
-                    <li>
-                      No fighting, illegal substances, or disruptive behavior
-                      allowed.
-                    </li>
-                    <li>
-                      We reserve the right to end a session without refund if
-                      these rules are violated.
-                    </li>
-                  </ul>
-                </div>
+                  <div>
+                    <h4 className="text-amber-400 font-semibold">
+                      4. Guests & Conduct
+                    </h4>
+                    <ul className="list-disc list-inside space-y-1 text-gray-300 mt-2">
+                      <li>Maximum guest number is defined per session type.</li>
+                      <li>
+                        No fighting, illegal substances, or disruptive behavior
+                        allowed.
+                      </li>
+                      <li>
+                        We reserve the right to end a session without refund if
+                        these rules are violated.
+                      </li>
+                    </ul>
+                  </div>
 
-                <div>
-                  <h4 className="text-amber-400 font-semibold">
-                    5. Use of Content
-                  </h4>
-                  <ul className="list-disc list-inside space-y-1 text-gray-300">
-                    <li>
-                      Unless agreed otherwise, you retain full ownership of your
-                      work.
-                    </li>
-                    <li>
-                      We may request to post BTS or highlights for promotion
-                      unless you opt out beforehand.
-                    </li>
-                  </ul>
-                </div>
+                  <div>
+                    <h4 className="text-amber-400 font-semibold">
+                      5. Use of Content
+                    </h4>
+                    <ul className="list-disc list-inside space-y-1 text-gray-300 mt-2">
+                      <li>
+                        Unless agreed otherwise, you retain full ownership of
+                        your work.
+                      </li>
+                      <li>
+                        We may request to post BTS or highlights for promotion
+                        unless you opt out beforehand.
+                      </li>
+                    </ul>
+                  </div>
 
-                <div>
-                  <h4 className="text-amber-400 font-semibold">
-                    6. Damage & Liability
-                  </h4>
-                  <ul className="list-disc list-inside space-y-1 text-gray-300">
-                    <li>
-                      You are responsible for any damage caused to studio
-                      property.
-                    </li>
-                    <li>
-                      Young Circle Empire is not liable for loss of personal
-                      items or injury during your session.
-                    </li>
-                  </ul>
+                  <div>
+                    <h4 className="text-amber-400 font-semibold">
+                      6. Damage & Liability
+                    </h4>
+                    <ul className="list-disc list-inside space-y-1 text-gray-300 mt-2">
+                      <li>
+                        You are responsible for any damage caused to studio
+                        property.
+                      </li>
+                      <li>
+                        Young Circle Empire is not liable for loss of personal
+                        items or injury during your session.
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex items-center space-x-2 mt-6">
+              <div className="flex items-center space-x-2 mb-6">
                 <Checkbox id="terms" required />
                 <Label htmlFor="terms" className="text-white">
                   I accept the Terms and Conditions
@@ -575,7 +600,7 @@ const BookingForm = () => {
 
               <Button
                 type="submit"
-                className="w-full bg-amber-600 hover:bg-amber-700 text-black font-bold py-3 text-lg mt-6"
+                className="w-full bg-amber-600 hover:bg-amber-700 text-black font-bold py-3 text-lg"
               >
                 Submit Booking Request
               </Button>
