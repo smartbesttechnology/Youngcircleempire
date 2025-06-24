@@ -627,7 +627,7 @@ const BookingForm = () => {
             </CardContent>
           </Card>
 
-          {/* Booking Details */}
+          {/* Booking Details - Moved up */}
           <Card className="bg-black/80 border-amber-500/30">
             <CardHeader>
               <CardTitle className="text-white">Booking Details</CardTitle>
@@ -722,7 +722,7 @@ const BookingForm = () => {
             </CardContent>
           </Card>
 
-          {/* Your Information */}
+          {/* Your Information - Moved down */}
           <Card className="bg-black/80 border-amber-500/30">
             <CardHeader>
               <CardTitle className="text-white">Your Information</CardTitle>
@@ -850,7 +850,7 @@ const BookingForm = () => {
             </CardContent>
           </Card>
 
-          {/* Terms & Conditions */}
+          {/* Terms & Conditions - Scrollable with border */}
           <Card className="bg-black/80 border-amber-500/30">
             <CardHeader>
               <CardTitle className="text-white">

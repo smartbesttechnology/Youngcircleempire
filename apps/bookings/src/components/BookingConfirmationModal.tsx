@@ -14,6 +14,7 @@ interface BookingData {
   email: string;
   contactMethod: string;
   services: string[];
+  addons: string[];
   date: string;
   time: string;
   duration: string;
@@ -24,7 +25,13 @@ interface BookingData {
 interface Service {
   id: string;
   name: string;
-  info: string;
+  tagline: string;
+  description: string;
+}
+
+interface Addon {
+  id: string;
+  name: string;
 }
 
 interface BookingConfirmationModalProps {
@@ -33,6 +40,7 @@ interface BookingConfirmationModalProps {
   onConfirm: () => void;
   bookingData: BookingData;
   services: Service[];
+  addons: Addon[];
 }
 
 const BookingConfirmationModal = ({
@@ -41,9 +49,14 @@ const BookingConfirmationModal = ({
   onConfirm,
   bookingData,
   services,
+  addons,
 }: BookingConfirmationModalProps) => {
   const selectedServices = services.filter((service) =>
     bookingData.services.includes(service.id),
+  );
+
+  const selectedAddons = addons.filter((addon) =>
+    bookingData.addons.includes(addon.id),
   );
 
   return (
@@ -91,11 +104,29 @@ const BookingConfirmationModal = ({
                 {selectedServices.map((service) => (
                   <div key={service.id} className="text-sm">
                     <div className="font-medium">{service.name}</div>
-                    <div className="text-amber-400 text-xs">{service.info}</div>
+                    <div className="text-amber-400 text-xs">
+                      {service.tagline}
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
+
+            {/* Selected Add-ons */}
+            {selectedAddons.length > 0 && (
+              <div>
+                <h3 className="text-amber-400 font-semibold mb-2">
+                  Selected Add-ons
+                </h3>
+                <div className="space-y-1">
+                  {selectedAddons.map((addon) => (
+                    <div key={addon.id} className="text-sm">
+                      <div className="text-white">• {addon.name}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Booking Details */}
             <div>
