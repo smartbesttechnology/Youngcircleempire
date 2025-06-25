@@ -560,8 +560,8 @@ const BookingForm = () => {
             {/* Back Button */}
             <Button
               onClick={() => setCurrentStep("category")}
-              variant="outline"
-              className="border-gray-600 text-gray-400 hover:text-white hover:border-white"
+              variant="ghost"
+              className="text-amber-400 hover:text-amber-300 hover:bg-amber-900/20 border-0 px-0 font-normal transition-all duration-200"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Categories
@@ -886,7 +886,7 @@ const BookingForm = () => {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="NG">🇳🇬 +234</SelectItem>
-                        <SelectItem value="US">🇺��� +1</SelectItem>
+                        <SelectItem value="US">🇺🇸 +1</SelectItem>
                         <SelectItem value="UK">🇬🇧 +44</SelectItem>
                         <SelectItem value="CA">🇨🇦 +1</SelectItem>
                         <SelectItem value="AU">🇦🇺 +61</SelectItem>
