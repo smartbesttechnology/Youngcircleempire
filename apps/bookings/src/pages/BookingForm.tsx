@@ -572,7 +572,7 @@ const BookingForm = () => {
             </Button>
 
             {/* Service Selection - New Design */}
-            <Card className="bg-gray-900/95 border-gray-700/50 backdrop-blur-sm">
+            <Card className="bg-black/80 border-amber-500/30">
               <CardContent className="p-8">
                 {/* Category Title with Icon */}
                 <div className="flex items-center gap-3 mb-2">
