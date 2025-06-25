@@ -462,9 +462,7 @@ const BookingForm = () => {
   const handleServiceChange = (serviceId: string, checked: boolean) => {
     setFormData((prev) => ({
       ...prev,
-      services: checked
-        ? [...prev.services, serviceId]
-        : prev.services.filter((id) => id !== serviceId),
+      services: checked ? [serviceId] : [],
     }));
   };
 
@@ -586,21 +584,8 @@ const BookingForm = () => {
                     {selectedCategoryId === "premium-artist-branding" && "🎨"}
                     {selectedCategoryId === "empire-signature-packages" && "📦"}
                   </div>
-                  <h1 className="text-white text-2xl font-semibold">
-                    {selectedCategoryId === "empire-studio-session" &&
-                      "Empire Studio Session"}
-                    {selectedCategoryId === "empire-video-visual" &&
-                      "Empire Video & Visual Production"}
-                    {selectedCategoryId === "empire-photoshoot" &&
-                      "Empire Photoshoot"}
-                    {selectedCategoryId === "empire-events-entertainment" &&
-                      "Empire Events & Entertainment"}
-                    {selectedCategoryId === "promotion-distribution" &&
-                      "Promotion & Distribution"}
-                    {selectedCategoryId === "premium-artist-branding" &&
-                      "Premium Artist Branding"}
-                    {selectedCategoryId === "empire-signature-packages" &&
-                      "Empire Signature Packages"}
+                  <h1 className="text-amber-600 text-2xl font-semibold">
+                    Choose Your Services
                   </h1>
                 </div>
 
@@ -627,11 +612,11 @@ const BookingForm = () => {
                       <div className="p-5">
                         <div className="flex items-start gap-3">
                           {/* Radio Button */}
-                          <div className="flex-shrink-0 mt-0.5">
+                          <div className="flex-shrink-0 mt-1">
                             <div
-                              className={`w-4 h-4 rounded-full transition-colors duration-200 ${
+                              className={`w-3 h-3 rounded-full transition-colors duration-200 ${
                                 formData.services.includes(service.id)
-                                  ? "bg-cyan-400"
+                                  ? "bg-amber-600"
                                   : "bg-white"
                               }`}
                             ></div>
@@ -641,7 +626,7 @@ const BookingForm = () => {
                           <div className="flex-1">
                             <div className="flex items-start justify-between">
                               <div>
-                                <h3 className="text-white font-normal text-base mb-1">
+                                <h3 className="text-white font-medium text-lg mb-1">
                                   {service.name}
                                 </h3>
                                 <p className="text-amber-400 text-xs">
