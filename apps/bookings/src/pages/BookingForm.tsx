@@ -571,49 +571,91 @@ const BookingForm = () => {
               Back to Categories
             </Button>
 
-            {/* Service Selection */}
-            <Card className="bg-black/80 border-amber-500/30">
-              <CardHeader>
-                <CardTitle className="text-white text-2xl">
-                  Select Your Services
-                </CardTitle>
-                <p className="text-amber-400">
-                  Choose the specific services you need from this category
+            {/* Service Selection - New Design */}
+            <Card className="bg-gray-900/95 border-gray-700/50 backdrop-blur-sm">
+              <CardContent className="p-8">
+                {/* Category Title with Icon */}
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="text-2xl">
+                    {selectedCategoryId === "empire-studio-session" && "🎙️"}
+                    {selectedCategoryId === "empire-video-visual" && "🎬"}
+                    {selectedCategoryId === "empire-photoshoot" && "📸"}
+                    {selectedCategoryId === "empire-events-entertainment" &&
+                      "🎭"}
+                    {selectedCategoryId === "promotion-distribution" && "📢"}
+                    {selectedCategoryId === "premium-artist-branding" && "🎨"}
+                    {selectedCategoryId === "empire-signature-packages" && "📦"}
+                  </div>
+                  <h1 className="text-white text-2xl font-semibold">
+                    {selectedCategoryId === "empire-studio-session" &&
+                      "Empire Studio Session"}
+                    {selectedCategoryId === "empire-video-visual" &&
+                      "Empire Video & Visual Production"}
+                    {selectedCategoryId === "empire-photoshoot" &&
+                      "Empire Photoshoot"}
+                    {selectedCategoryId === "empire-events-entertainment" &&
+                      "Empire Events & Entertainment"}
+                    {selectedCategoryId === "promotion-distribution" &&
+                      "Promotion & Distribution"}
+                    {selectedCategoryId === "premium-artist-branding" &&
+                      "Premium Artist Branding"}
+                    {selectedCategoryId === "empire-signature-packages" &&
+                      "Empire Signature Packages"}
+                  </h1>
+                </div>
+
+                <p className="text-gray-400 text-sm mb-8">
+                  Choose your specific service
                 </p>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
+
+                <div className="space-y-4">
                   {filteredServices.map((service) => (
                     <div
                       key={service.id}
-                      className="bg-gray-800/50 rounded-lg border border-gray-700"
+                      className={`rounded-lg border transition-all duration-200 ${
+                        formData.services.includes(service.id)
+                          ? "bg-amber-600/20 border-amber-500/50"
+                          : "bg-gray-800/30 border-gray-600/50 hover:border-gray-500/70"
+                      }`}
                     >
-                      <div className="p-4">
-                        <div className="flex items-start space-x-3">
-                          <Checkbox
-                            id={service.id}
-                            checked={formData.services.includes(service.id)}
-                            onCheckedChange={(checked) =>
-                              handleServiceChange(
-                                service.id,
-                                checked as boolean,
-                              )
-                            }
-                            className="mt-1"
-                          />
+                      <div className="p-5">
+                        <div className="flex items-start gap-4">
+                          {/* Radio Button */}
+                          <div className="flex-shrink-0 mt-1">
+                            <div
+                              className={`w-5 h-5 rounded-full border-2 cursor-pointer transition-colors duration-200 ${
+                                formData.services.includes(service.id)
+                                  ? "border-amber-500 bg-amber-500"
+                                  : "border-gray-400"
+                              }`}
+                              onClick={() =>
+                                handleServiceChange(
+                                  service.id,
+                                  !formData.services.includes(service.id),
+                                )
+                              }
+                            >
+                              {formData.services.includes(service.id) && (
+                                <div className="w-full h-full rounded-full bg-white flex items-center justify-center">
+                                  <div className="w-2 h-2 rounded-full bg-amber-500"></div>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Service Content */}
                           <div className="flex-1">
                             <div className="flex items-center justify-between">
                               <div>
-                                <Label
-                                  htmlFor={service.id}
-                                  className="text-white font-medium text-base cursor-pointer"
-                                >
+                                <h3 className="text-white font-medium text-lg mb-1">
                                   {service.name}
-                                </Label>
-                                <p className="text-amber-400 text-sm mt-1">
+                                </h3>
+                                <p className="text-amber-400 text-sm">
                                   {service.tagline}
                                 </p>
                               </div>
+
+                              {/* More Info Button */}
                               <Button
                                 type="button"
                                 variant="ghost"
@@ -621,8 +663,12 @@ const BookingForm = () => {
                                 onClick={() =>
                                   toggleServiceExpansion(service.id)
                                 }
-                                className="text-gray-400 hover:text-white ml-4"
+                                className="text-amber-400 hover:text-amber-300 hover:bg-amber-900/20 flex items-center gap-2 px-3 py-1 text-sm"
                               >
+                                <div className="w-4 h-4 rounded-full border border-current flex items-center justify-center">
+                                  <span className="text-xs">i</span>
+                                </div>
+                                More Info
                                 {expandedServices.has(service.id) ? (
                                   <ChevronUp className="w-4 h-4" />
                                 ) : (
@@ -630,9 +676,11 @@ const BookingForm = () => {
                                 )}
                               </Button>
                             </div>
+
+                            {/* Expanded Description */}
                             {expandedServices.has(service.id) && (
-                              <div className="mt-3 p-3 bg-gray-900/50 rounded-md">
-                                <p className="text-gray-300 text-sm">
+                              <div className="mt-4 p-4 bg-gray-800/50 rounded-md border border-gray-700/50">
+                                <p className="text-gray-300 text-sm leading-relaxed">
                                   {service.description}
                                 </p>
                               </div>
