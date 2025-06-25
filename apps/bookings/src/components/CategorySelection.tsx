@@ -71,7 +71,7 @@ const categories: CategoryData[] = [
     title: "Empire Signature Packages",
     tagline: "All-inclusive | Career development | Premium support",
     description:
-      "Comprehensive artist development programs combining multiple services for complete creative projects and long-term career growth with ongoing support.",
+      "Comprehensive packages combining multiple services for complete artist development and career advancement.",
   },
 ];
 
