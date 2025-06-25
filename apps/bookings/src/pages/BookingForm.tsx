@@ -625,32 +625,26 @@ const BookingForm = () => {
                       }
                     >
                       <div className="p-5">
-                        <div className="flex items-start gap-4">
+                        <div className="flex items-start gap-3">
                           {/* Radio Button */}
-                          <div className="flex-shrink-0 mt-1">
+                          <div className="flex-shrink-0 mt-0.5">
                             <div
-                              className={`w-5 h-5 rounded-full border-2 transition-colors duration-200 ${
+                              className={`w-4 h-4 rounded-full transition-colors duration-200 ${
                                 formData.services.includes(service.id)
-                                  ? "border-amber-500 bg-amber-500"
-                                  : "border-gray-400"
+                                  ? "bg-cyan-400"
+                                  : "bg-white"
                               }`}
-                            >
-                              {formData.services.includes(service.id) && (
-                                <div className="w-full h-full rounded-full bg-white flex items-center justify-center">
-                                  <div className="w-2 h-2 rounded-full bg-amber-500"></div>
-                                </div>
-                              )}
-                            </div>
+                            ></div>
                           </div>
 
                           {/* Service Content */}
                           <div className="flex-1">
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-start justify-between">
                               <div>
-                                <h3 className="text-white font-medium text-lg mb-1">
+                                <h3 className="text-white font-normal text-base mb-1">
                                   {service.name}
                                 </h3>
-                                <p className="text-amber-400 text-sm">
+                                <p className="text-amber-400 text-xs">
                                   {service.tagline}
                                 </p>
                               </div>
