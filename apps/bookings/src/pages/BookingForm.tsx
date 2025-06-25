@@ -610,9 +610,9 @@ const BookingForm = () => {
                       }
                     >
                       <div className="p-5">
-                        <div className="relative">
+                        <div className="flex items-start gap-0">
                           {/* Radio Button */}
-                          <div className="absolute left-0 top-0.5">
+                          <div className="flex-shrink-0 mt-0.5 mr-4">
                             <div
                               className={`w-3 h-3 rounded-full transition-colors duration-200 ${
                                 formData.services.includes(service.id)
@@ -623,15 +623,16 @@ const BookingForm = () => {
                           </div>
 
                           {/* Service Content */}
-                          <div className="flex items-start justify-between">
-                            <div className="pl-0">
-                              <h3 className="text-white font-medium text-lg mb-1 leading-tight">
-                                {service.name}
-                              </h3>
-                              <p className="text-amber-400 text-xs">
-                                {service.tagline}
-                              </p>
-                            </div>
+                          <div className="flex-1">
+                            <div className="flex items-start justify-between">
+                              <div className="-ml-4">
+                                <h3 className="text-white font-medium text-lg mb-1 leading-tight">
+                                  {service.name}
+                                </h3>
+                                <p className="text-amber-400 text-xs">
+                                  {service.tagline}
+                                </p>
+                              </div>
 
                               {/* More Info Button */}
                               <Button
@@ -658,7 +659,7 @@ const BookingForm = () => {
 
                             {/* Expanded Description */}
                             {expandedServices.has(service.id) && (
-                              <div className="mt-4 p-4 bg-gray-800/50 rounded-md border border-gray-700/50">
+                              <div className="mt-4 p-4 bg-gray-800/50 rounded-md border border-gray-700/50 -ml-4">
                                 <p className="text-gray-300 text-sm leading-relaxed">
                                   {service.description}
                                 </p>
