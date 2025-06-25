@@ -92,7 +92,7 @@ const CategorySelection = ({
           </p>
         </CardHeader>
         <CardContent>
-          {/* Category Grid - Matching screenshot layout */}
+          {/* Category Grid - Updated with hover effects only */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {categories.map((category) => (
               <Card
