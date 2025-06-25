@@ -612,7 +612,7 @@ const BookingForm = () => {
                       <div className="p-5">
                         <div className="flex items-start gap-3">
                           {/* Radio Button */}
-                          <div className="flex-shrink-0 mt-1">
+                          <div className="flex-shrink-0 mt-0.5">
                             <div
                               className={`w-3 h-3 rounded-full transition-colors duration-200 ${
                                 formData.services.includes(service.id)
@@ -626,7 +626,7 @@ const BookingForm = () => {
                           <div className="flex-1">
                             <div className="flex items-start justify-between">
                               <div>
-                                <h3 className="text-white font-medium text-lg mb-1">
+                                <h3 className="text-white font-medium text-lg mb-1 leading-tight">
                                   {service.name}
                                 </h3>
                                 <p className="text-amber-400 text-xs">
