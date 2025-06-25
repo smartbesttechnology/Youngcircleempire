@@ -528,7 +528,7 @@ const BookingForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-amber-900">
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-amber-900 overflow-x-hidden">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -583,7 +583,20 @@ const BookingForm = () => {
                     {selectedCategoryId === "empire-signature-packages" && "📦"}
                   </div>
                   <h1 className="text-amber-600 text-2xl font-semibold">
-                    Choose Your Services
+                    {selectedCategoryId === "empire-studio-session" &&
+                      "Empire Studio Session"}
+                    {selectedCategoryId === "empire-video-visual" &&
+                      "Empire Video & Visual Production"}
+                    {selectedCategoryId === "empire-photoshoot" &&
+                      "Empire Photoshoot"}
+                    {selectedCategoryId === "empire-events-entertainment" &&
+                      "Empire Events & Entertainment"}
+                    {selectedCategoryId === "promotion-distribution" &&
+                      "Promotion & Distribution"}
+                    {selectedCategoryId === "premium-artist-branding" &&
+                      "Premium Artist Branding"}
+                    {selectedCategoryId === "empire-signature-packages" &&
+                      "Empire Signature Packages"}
                   </h1>
                 </div>
 
