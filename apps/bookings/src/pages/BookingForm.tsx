@@ -541,9 +541,7 @@ const BookingForm = () => {
             Empire Bookings
           </h1>
           <p className="text-amber-400 max-w-3xl mx-auto text-lg">
-            Where creativity meets class. Whether you're pulling up for a mic
-            drop moment, a cinematic shoot, or a full-blown artist experience,
-            you're in the right place. Let's make something legendary.
+            Where creativity meets class. Let's make something legendary.
           </p>
         </div>
 
@@ -888,7 +886,7 @@ const BookingForm = () => {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="NG">🇳🇬 +234</SelectItem>
-                        <SelectItem value="US">🇺🇸 +1</SelectItem>
+                        <SelectItem value="US">🇺��� +1</SelectItem>
                         <SelectItem value="UK">🇬🇧 +44</SelectItem>
                         <SelectItem value="CA">🇨🇦 +1</SelectItem>
                         <SelectItem value="AU">🇦🇺 +61</SelectItem>
