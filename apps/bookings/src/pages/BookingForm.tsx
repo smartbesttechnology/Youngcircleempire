@@ -462,9 +462,7 @@ const BookingForm = () => {
   const handleServiceChange = (serviceId: string, checked: boolean) => {
     setFormData((prev) => ({
       ...prev,
-      services: checked
-        ? [...prev.services, serviceId]
-        : prev.services.filter((id) => id !== serviceId),
+      services: checked ? [serviceId] : [],
     }));
   };
 
@@ -530,7 +528,7 @@ const BookingForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-amber-900">
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-amber-900 overflow-x-hidden">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -543,9 +541,7 @@ const BookingForm = () => {
             Empire Bookings
           </h1>
           <p className="text-amber-400 max-w-3xl mx-auto text-lg">
-            Where creativity meets class. Whether you're pulling up for a mic
-            drop moment, a cinematic shoot, or a full-blown artist experience,
-            you're in the right place. Let's make something legendary.
+            Where creativity meets class. Let's make something legendary.
           </p>
         </div>
 
@@ -564,8 +560,8 @@ const BookingForm = () => {
             {/* Back Button */}
             <Button
               onClick={() => setCurrentStep("category")}
-              variant="outline"
-              className="border-gray-600 text-gray-400 hover:text-white hover:border-white"
+              variant="ghost"
+              className="text-amber-400 hover:text-amber-300 hover:bg-amber-900/20 border-0 px-0 font-normal transition-all duration-200"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Categories
@@ -586,7 +582,7 @@ const BookingForm = () => {
                     {selectedCategoryId === "premium-artist-branding" && "🎨"}
                     {selectedCategoryId === "empire-signature-packages" && "📦"}
                   </div>
-                  <h1 className="text-white text-2xl font-semibold">
+                  <h1 className="text-amber-600 text-2xl font-semibold">
                     {selectedCategoryId === "empire-studio-session" &&
                       "Empire Studio Session"}
                     {selectedCategoryId === "empire-video-visual" &&
@@ -625,13 +621,13 @@ const BookingForm = () => {
                       }
                     >
                       <div className="p-5">
-                        <div className="flex items-start gap-3">
+                        <div className="flex items-start gap-0">
                           {/* Radio Button */}
-                          <div className="flex-shrink-0 mt-0.5">
+                          <div className="flex-shrink-0 mt-0.5 mr-4">
                             <div
-                              className={`w-4 h-4 rounded-full transition-colors duration-200 ${
+                              className={`w-3 h-3 rounded-full transition-colors duration-200 ${
                                 formData.services.includes(service.id)
-                                  ? "bg-cyan-400"
+                                  ? "bg-amber-600"
                                   : "bg-white"
                               }`}
                             ></div>
@@ -641,10 +637,10 @@ const BookingForm = () => {
                           <div className="flex-1">
                             <div className="flex items-start justify-between">
                               <div>
-                                <h3 className="text-white font-normal text-base mb-1">
+                                <h3 className="text-white font-medium text-lg mb-1 leading-tight">
                                   {service.name}
                                 </h3>
-                                <p className="text-amber-400 text-xs">
+                                <p className="text-amber-400 text-xs -ml-9">
                                   {service.tagline}
                                 </p>
                               </div>
@@ -674,7 +670,7 @@ const BookingForm = () => {
 
                             {/* Expanded Description */}
                             {expandedServices.has(service.id) && (
-                              <div className="mt-4 p-4 bg-gray-800/50 rounded-md border border-gray-700/50">
+                              <div className="mt-4 -ml-9">
                                 <p className="text-gray-300 text-sm leading-relaxed">
                                   {service.description}
                                 </p>
@@ -784,6 +780,10 @@ const BookingForm = () => {
                         <SelectItem value="2-hours">2 hours</SelectItem>
                         <SelectItem value="3-hours">3 hours</SelectItem>
                         <SelectItem value="4-hours">4 hours</SelectItem>
+                        <SelectItem value="5-hours">5 hours</SelectItem>
+                        <SelectItem value="6-hours">6 hours</SelectItem>
+                        <SelectItem value="7-hours">7 hours</SelectItem>
+                        <SelectItem value="8-hours">8 hours</SelectItem>
                         <SelectItem value="full-day">Full Day</SelectItem>
                       </SelectContent>
                     </Select>
@@ -907,6 +907,192 @@ const BookingForm = () => {
                         <SelectItem value="UK">🇬🇧 +44</SelectItem>
                         <SelectItem value="CA">🇨🇦 +1</SelectItem>
                         <SelectItem value="AU">🇦🇺 +61</SelectItem>
+                        <SelectItem value="AF">🇦🇫 +93</SelectItem>
+                        <SelectItem value="AL">🇦🇱 +355</SelectItem>
+                        <SelectItem value="DZ">🇩🇿 +213</SelectItem>
+                        <SelectItem value="AD">🇦🇩 +376</SelectItem>
+                        <SelectItem value="AO">🇦🇴 +244</SelectItem>
+                        <SelectItem value="AR">🇦🇷 +54</SelectItem>
+                        <SelectItem value="AM">🇦🇲 +374</SelectItem>
+                        <SelectItem value="AT">🇦🇹 +43</SelectItem>
+                        <SelectItem value="AZ">🇦🇿 +994</SelectItem>
+                        <SelectItem value="BS">🇧🇸 +1-242</SelectItem>
+                        <SelectItem value="BH">🇧🇭 +973</SelectItem>
+                        <SelectItem value="BD">🇧🇩 +880</SelectItem>
+                        <SelectItem value="BB">🇧🇧 +1-246</SelectItem>
+                        <SelectItem value="BY">🇧🇾 +375</SelectItem>
+                        <SelectItem value="BE">🇧🇪 +32</SelectItem>
+                        <SelectItem value="BZ">🇧🇿 +501</SelectItem>
+                        <SelectItem value="BJ">🇧🇯 +229</SelectItem>
+                        <SelectItem value="BT">🇧🇹 +975</SelectItem>
+                        <SelectItem value="BO">🇧🇴 +591</SelectItem>
+                        <SelectItem value="BA">🇧🇦 +387</SelectItem>
+                        <SelectItem value="BW">🇧🇼 +267</SelectItem>
+                        <SelectItem value="BR">🇧🇷 +55</SelectItem>
+                        <SelectItem value="BN">🇧🇳 +673</SelectItem>
+                        <SelectItem value="BG">🇧🇬 +359</SelectItem>
+                        <SelectItem value="BF">🇧🇫 +226</SelectItem>
+                        <SelectItem value="BI">🇧🇮 +257</SelectItem>
+                        <SelectItem value="KH">🇰🇭 +855</SelectItem>
+                        <SelectItem value="CM">🇨🇲 +237</SelectItem>
+                        <SelectItem value="CV">🇨🇻 +238</SelectItem>
+                        <SelectItem value="CF">🇨🇫 +236</SelectItem>
+                        <SelectItem value="TD">🇹🇩 +235</SelectItem>
+                        <SelectItem value="CL">🇨🇱 +56</SelectItem>
+                        <SelectItem value="CN">🇨🇳 +86</SelectItem>
+                        <SelectItem value="CO">🇨🇴 +57</SelectItem>
+                        <SelectItem value="KM">🇰🇲 +269</SelectItem>
+                        <SelectItem value="CG">🇨🇬 +242</SelectItem>
+                        <SelectItem value="CD">🇨🇩 +243</SelectItem>
+                        <SelectItem value="CR">🇨🇷 +506</SelectItem>
+                        <SelectItem value="CI">🇨🇮 +225</SelectItem>
+                        <SelectItem value="HR">🇭🇷 +385</SelectItem>
+                        <SelectItem value="CU">🇨🇺 +53</SelectItem>
+                        <SelectItem value="CY">🇨🇾 +357</SelectItem>
+                        <SelectItem value="CZ">🇨🇿 +420</SelectItem>
+                        <SelectItem value="DK">🇩🇰 +45</SelectItem>
+                        <SelectItem value="DJ">🇩🇯 +253</SelectItem>
+                        <SelectItem value="DM">🇩🇲 +1-767</SelectItem>
+                        <SelectItem value="DO">🇩🇴 +1-809</SelectItem>
+                        <SelectItem value="EC">🇪🇨 +593</SelectItem>
+                        <SelectItem value="EG">🇪🇬 +20</SelectItem>
+                        <SelectItem value="SV">🇸🇻 +503</SelectItem>
+                        <SelectItem value="GQ">🇬🇶 +240</SelectItem>
+                        <SelectItem value="ER">🇪🇷 +291</SelectItem>
+                        <SelectItem value="EE">🇪🇪 +372</SelectItem>
+                        <SelectItem value="ET">🇪🇹 +251</SelectItem>
+                        <SelectItem value="FJ">🇫🇯 +679</SelectItem>
+                        <SelectItem value="FI">🇫🇮 +358</SelectItem>
+                        <SelectItem value="FR">🇫🇷 +33</SelectItem>
+                        <SelectItem value="GA">🇬🇦 +241</SelectItem>
+                        <SelectItem value="GM">🇬🇲 +220</SelectItem>
+                        <SelectItem value="GE">🇬🇪 +995</SelectItem>
+                        <SelectItem value="DE">🇩🇪 +49</SelectItem>
+                        <SelectItem value="GH">🇬🇭 +233</SelectItem>
+                        <SelectItem value="GR">🇬🇷 +30</SelectItem>
+                        <SelectItem value="GD">🇬🇩 +1-473</SelectItem>
+                        <SelectItem value="GT">🇬🇹 +502</SelectItem>
+                        <SelectItem value="GN">🇬🇳 +224</SelectItem>
+                        <SelectItem value="GW">🇬🇼 +245</SelectItem>
+                        <SelectItem value="GY">🇬🇾 +592</SelectItem>
+                        <SelectItem value="HT">🇭🇹 +509</SelectItem>
+                        <SelectItem value="HN">🇭🇳 +504</SelectItem>
+                        <SelectItem value="HU">🇭🇺 +36</SelectItem>
+                        <SelectItem value="IS">🇮🇸 +354</SelectItem>
+                        <SelectItem value="IN">🇮🇳 +91</SelectItem>
+                        <SelectItem value="ID">🇮🇩 +62</SelectItem>
+                        <SelectItem value="IR">🇮🇷 +98</SelectItem>
+                        <SelectItem value="IQ">🇮🇶 +964</SelectItem>
+                        <SelectItem value="IE">🇮🇪 +353</SelectItem>
+                        <SelectItem value="IL">🇮🇱 +972</SelectItem>
+                        <SelectItem value="IT">🇮🇹 +39</SelectItem>
+                        <SelectItem value="JM">🇯🇲 +1-876</SelectItem>
+                        <SelectItem value="JP">🇯🇵 +81</SelectItem>
+                        <SelectItem value="JO">🇯🇴 +962</SelectItem>
+                        <SelectItem value="KZ">🇰🇿 +7</SelectItem>
+                        <SelectItem value="KE">🇰🇪 +254</SelectItem>
+                        <SelectItem value="KI">🇰🇮 +686</SelectItem>
+                        <SelectItem value="KP">🇰🇵 +850</SelectItem>
+                        <SelectItem value="KR">🇰🇷 +82</SelectItem>
+                        <SelectItem value="KW">🇰🇼 +965</SelectItem>
+                        <SelectItem value="KG">🇰🇬 +996</SelectItem>
+                        <SelectItem value="LA">🇱🇦 +856</SelectItem>
+                        <SelectItem value="LV">🇱🇻 +371</SelectItem>
+                        <SelectItem value="LB">🇱🇧 +961</SelectItem>
+                        <SelectItem value="LS">🇱🇸 +266</SelectItem>
+                        <SelectItem value="LR">🇱🇷 +231</SelectItem>
+                        <SelectItem value="LY">🇱🇾 +218</SelectItem>
+                        <SelectItem value="LI">🇱🇮 +423</SelectItem>
+                        <SelectItem value="LT">🇱🇹 +370</SelectItem>
+                        <SelectItem value="LU">🇱🇺 +352</SelectItem>
+                        <SelectItem value="MG">🇲🇬 +261</SelectItem>
+                        <SelectItem value="MW">🇲🇼 +265</SelectItem>
+                        <SelectItem value="MY">🇲🇾 +60</SelectItem>
+                        <SelectItem value="MV">🇲🇻 +960</SelectItem>
+                        <SelectItem value="ML">🇲🇱 +223</SelectItem>
+                        <SelectItem value="MT">🇲🇹 +356</SelectItem>
+                        <SelectItem value="MH">🇲🇭 +692</SelectItem>
+                        <SelectItem value="MR">🇲🇷 +222</SelectItem>
+                        <SelectItem value="MU">🇲🇺 +230</SelectItem>
+                        <SelectItem value="MX">🇲🇽 +52</SelectItem>
+                        <SelectItem value="FM">🇫🇲 +691</SelectItem>
+                        <SelectItem value="MD">🇲🇩 +373</SelectItem>
+                        <SelectItem value="MC">🇲🇨 +377</SelectItem>
+                        <SelectItem value="MN">🇲🇳 +976</SelectItem>
+                        <SelectItem value="ME">🇲🇪 +382</SelectItem>
+                        <SelectItem value="MA">🇲🇦 +212</SelectItem>
+                        <SelectItem value="MZ">🇲🇿 +258</SelectItem>
+                        <SelectItem value="MM">🇲🇲 +95</SelectItem>
+                        <SelectItem value="NA">🇳🇦 +264</SelectItem>
+                        <SelectItem value="NR">🇳🇷 +674</SelectItem>
+                        <SelectItem value="NP">🇳🇵 +977</SelectItem>
+                        <SelectItem value="NL">🇳🇱 +31</SelectItem>
+                        <SelectItem value="NZ">🇳🇿 +64</SelectItem>
+                        <SelectItem value="NI">🇳🇮 +505</SelectItem>
+                        <SelectItem value="NE">🇳🇪 +227</SelectItem>
+                        <SelectItem value="NO">🇳🇴 +47</SelectItem>
+                        <SelectItem value="OM">🇴🇲 +968</SelectItem>
+                        <SelectItem value="PK">🇵🇰 +92</SelectItem>
+                        <SelectItem value="PW">🇵🇼 +680</SelectItem>
+                        <SelectItem value="PA">🇵🇦 +507</SelectItem>
+                        <SelectItem value="PG">🇵🇬 +675</SelectItem>
+                        <SelectItem value="PY">🇵🇾 +595</SelectItem>
+                        <SelectItem value="PE">🇵🇪 +51</SelectItem>
+                        <SelectItem value="PH">🇵🇭 +63</SelectItem>
+                        <SelectItem value="PL">🇵🇱 +48</SelectItem>
+                        <SelectItem value="PT">🇵🇹 +351</SelectItem>
+                        <SelectItem value="QA">🇶🇦 +974</SelectItem>
+                        <SelectItem value="RO">🇷🇴 +40</SelectItem>
+                        <SelectItem value="RU">🇷🇺 +7</SelectItem>
+                        <SelectItem value="RW">🇷🇼 +250</SelectItem>
+                        <SelectItem value="KN">🇰🇳 +1-869</SelectItem>
+                        <SelectItem value="LC">🇱🇨 +1-758</SelectItem>
+                        <SelectItem value="VC">🇻🇨 +1-784</SelectItem>
+                        <SelectItem value="WS">🇼🇸 +685</SelectItem>
+                        <SelectItem value="SM">🇸🇲 +378</SelectItem>
+                        <SelectItem value="ST">🇸🇹 +239</SelectItem>
+                        <SelectItem value="SA">🇸🇦 +966</SelectItem>
+                        <SelectItem value="SN">🇸🇳 +221</SelectItem>
+                        <SelectItem value="RS">🇷🇸 +381</SelectItem>
+                        <SelectItem value="SC">🇸🇨 +248</SelectItem>
+                        <SelectItem value="SL">🇸🇱 +232</SelectItem>
+                        <SelectItem value="SG">🇸🇬 +65</SelectItem>
+                        <SelectItem value="SK">🇸🇰 +421</SelectItem>
+                        <SelectItem value="SI">🇸🇮 +386</SelectItem>
+                        <SelectItem value="SB">🇸🇧 +677</SelectItem>
+                        <SelectItem value="SO">🇸🇴 +252</SelectItem>
+                        <SelectItem value="ZA">🇿🇦 +27</SelectItem>
+                        <SelectItem value="SS">🇸🇸 +211</SelectItem>
+                        <SelectItem value="ES">🇪🇸 +34</SelectItem>
+                        <SelectItem value="LK">🇱🇰 +94</SelectItem>
+                        <SelectItem value="SD">🇸🇩 +249</SelectItem>
+                        <SelectItem value="SR">🇸🇷 +597</SelectItem>
+                        <SelectItem value="SE">🇸🇪 +46</SelectItem>
+                        <SelectItem value="CH">🇨🇭 +41</SelectItem>
+                        <SelectItem value="SY">🇸🇾 +963</SelectItem>
+                        <SelectItem value="TJ">🇹🇯 +992</SelectItem>
+                        <SelectItem value="TZ">🇹🇿 +255</SelectItem>
+                        <SelectItem value="TH">🇹🇭 +66</SelectItem>
+                        <SelectItem value="TL">🇹🇱 +670</SelectItem>
+                        <SelectItem value="TG">🇹🇬 +228</SelectItem>
+                        <SelectItem value="TO">🇹🇴 +676</SelectItem>
+                        <SelectItem value="TT">🇹🇹 +1-868</SelectItem>
+                        <SelectItem value="TN">🇹🇳 +216</SelectItem>
+                        <SelectItem value="TR">🇹🇷 +90</SelectItem>
+                        <SelectItem value="TM">🇹🇲 +993</SelectItem>
+                        <SelectItem value="TV">🇹🇻 +688</SelectItem>
+                        <SelectItem value="UG">🇺🇬 +256</SelectItem>
+                        <SelectItem value="UA">🇺🇦 +380</SelectItem>
+                        <SelectItem value="AE">🇦🇪 +971</SelectItem>
+                        <SelectItem value="UY">🇺🇾 +598</SelectItem>
+                        <SelectItem value="UZ">🇺🇿 +998</SelectItem>
+                        <SelectItem value="VU">🇻🇺 +678</SelectItem>
+                        <SelectItem value="VA">🇻🇦 +39</SelectItem>
+                        <SelectItem value="VE">🇻🇪 +58</SelectItem>
+                        <SelectItem value="VN">🇻🇳 +84</SelectItem>
+                        <SelectItem value="YE">🇾🇪 +967</SelectItem>
+                        <SelectItem value="ZM">🇿🇲 +260</SelectItem>
+                        <SelectItem value="ZW">🇿🇼 +263</SelectItem>
                       </SelectContent>
                     </Select>
                     <Input

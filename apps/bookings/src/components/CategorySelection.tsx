@@ -84,7 +84,7 @@ const CategorySelection = ({
     <div className="space-y-8">
       {/* Header */}
       <div className="text-center space-y-2">
-        <h1 className="text-white text-2xl font-bold">
+        <h1 className="text-amber-600 text-2xl font-bold">
           Choose Your Service Category
         </h1>
         <p className="text-amber-400">
