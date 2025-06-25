@@ -625,7 +625,7 @@ const BookingForm = () => {
                           {/* Service Content */}
                           <div className="flex-1">
                             <div className="flex items-start justify-between">
-                              <div className="-ml-4">
+                              <div className="-ml-7">
                                 <h3 className="text-white font-medium text-lg mb-1 leading-tight">
                                   {service.name}
                                 </h3>
@@ -659,7 +659,7 @@ const BookingForm = () => {
 
                             {/* Expanded Description */}
                             {expandedServices.has(service.id) && (
-                              <div className="mt-4 p-4 bg-gray-800/50 rounded-md border border-gray-700/50 -ml-4">
+                              <div className="mt-4 p-4 bg-gray-800/50 rounded-md border border-gray-700/50 -ml-7">
                                 <p className="text-gray-300 text-sm leading-relaxed">
                                   {service.description}
                                 </p>
