@@ -81,73 +81,73 @@ const CategorySelection = ({
   onNext,
 }: CategorySelectionProps) => {
   return (
-    <div className="space-y-8">
-      {/* Header */}
-      <div className="text-center mb-12">
-        <h2 className="text-4xl font-bold text-white mb-4">
+    <Card className="bg-black/80 border-amber-500/30 max-w-4xl mx-auto">
+      <CardHeader>
+        <CardTitle className="text-white text-2xl text-center">
           Choose Your Service Category
-        </h2>
-        <p className="text-amber-400 text-lg">
+        </CardTitle>
+        <p className="text-amber-400 text-center">
           Select the type of service you're looking for
         </p>
-      </div>
-
-      {/* Category Grid - Matching screenshot layout */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-        {categories.map((category) => (
-          <Card
-            key={category.id}
-            className={`cursor-pointer transition-all duration-300 h-full ${
-              selectedCategory === category.id
-                ? "bg-amber-600/20 border-amber-500 ring-2 ring-amber-500/50 transform scale-105"
-                : "bg-gray-800/60 border-gray-600 hover:border-amber-500/70 hover:bg-amber-900/10 hover:transform hover:scale-102"
-            }`}
-            onClick={() => onCategorySelect(category.id)}
-          >
-            <CardContent className="p-6 h-full flex flex-col justify-between">
-              {/* Icon and Title */}
-              <div className="text-center mb-4">
-                <div className="text-5xl mb-4">{category.emoji}</div>
-                <h3 className="text-white font-bold text-xl mb-2 leading-tight">
-                  {category.title}
-                </h3>
-                <p className="text-amber-400 text-sm font-medium mb-3">
-                  {category.tagline}
-                </p>
-              </div>
-
-              {/* Description */}
-              <div className="flex-grow">
-                <p className="text-gray-300 text-sm leading-relaxed text-center">
-                  {category.description}
-                </p>
-              </div>
-
-              {/* Selection Indicator */}
-              {selectedCategory === category.id && (
-                <div className="mt-4 text-center">
-                  <div className="inline-flex items-center px-3 py-1 rounded-full bg-amber-500 text-black text-xs font-semibold">
-                    ✓ Selected
-                  </div>
+      </CardHeader>
+      <CardContent className="space-y-8">
+        {/* Category Grid - Matching screenshot layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {categories.map((category) => (
+            <Card
+              key={category.id}
+              className={`cursor-pointer transition-all duration-300 h-full ${
+                selectedCategory === category.id
+                  ? "bg-amber-600/20 border-amber-500 ring-2 ring-amber-500/50 transform scale-105"
+                  : "bg-gray-800/60 border-gray-600 hover:border-amber-500/70 hover:bg-amber-900/10 hover:transform hover:scale-102"
+              }`}
+              onClick={() => onCategorySelect(category.id)}
+            >
+              <CardContent className="p-6 h-full flex flex-col justify-between">
+                {/* Icon and Title */}
+                <div className="text-center mb-4">
+                  <div className="text-5xl mb-4">{category.emoji}</div>
+                  <h3 className="text-white font-bold text-xl mb-2 leading-tight">
+                    {category.title}
+                  </h3>
+                  <p className="text-amber-400 text-sm font-medium mb-3">
+                    {category.tagline}
+                  </p>
                 </div>
-              )}
-            </CardContent>
-          </Card>
-        ))}
-      </div>
 
-      {/* Next Button */}
-      <div className="text-center mt-12">
-        <Button
-          onClick={onNext}
-          disabled={!selectedCategory}
-          className="bg-amber-600 hover:bg-amber-700 text-black font-bold px-12 py-4 text-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none transition-all duration-300"
-        >
-          Next: Select Services
-          <ChevronRight className="w-5 h-5 ml-2" />
-        </Button>
-      </div>
-    </div>
+                {/* Description */}
+                <div className="flex-grow">
+                  <p className="text-gray-300 text-sm leading-relaxed text-center">
+                    {category.description}
+                  </p>
+                </div>
+
+                {/* Selection Indicator */}
+                {selectedCategory === category.id && (
+                  <div className="mt-4 text-center">
+                    <div className="inline-flex items-center px-3 py-1 rounded-full bg-amber-500 text-black text-xs font-semibold">
+                      ✓ Selected
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {/* Next Button */}
+        <div className="text-center mt-8">
+          <Button
+            onClick={onNext}
+            disabled={!selectedCategory}
+            className="bg-amber-600 hover:bg-amber-700 text-black font-bold px-12 py-4 text-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none transition-all duration-300"
+          >
+            Next: Select Services
+            <ChevronRight className="w-5 h-5 ml-2" />
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 
