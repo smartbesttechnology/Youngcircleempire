@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { ChevronRight } from "lucide-react";
 
 interface CategoryData {
@@ -82,56 +82,54 @@ const CategorySelection = ({
 }: CategorySelectionProps) => {
   return (
     <div className="space-y-8">
-      <Card className="bg-black/80 border-amber-500/30 max-w-4xl mx-auto">
-        <CardHeader>
-          <CardTitle className="text-white text-2xl text-center">
-            Choose Your Service Category
-          </CardTitle>
-          <p className="text-amber-400 text-center">
-            Select the type of service you're looking for
-          </p>
-        </CardHeader>
-        <CardContent>
-          {/* Category Grid - Matching screenshot layout */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {categories.map((category) => (
-              <Card
-                key={category.id}
-                className={`cursor-pointer transition-all duration-300 h-full hover:scale-105 hover:border-amber-500/70 hover:bg-amber-900/20 ${
-                  selectedCategory === category.id
-                    ? "bg-amber-600/20 border-amber-500 ring-2 ring-amber-500/50"
-                    : "bg-gray-800/60 border-gray-600"
-                }`}
-                onClick={() => onCategorySelect(category.id)}
-              >
-                <CardContent className="p-6 h-full flex flex-col justify-between">
-                  {/* Icon and Title */}
-                  <div className="text-center mb-4">
-                    <div className="text-5xl mb-4">{category.emoji}</div>
-                    <h3 className="text-white font-bold text-xl mb-2 leading-tight">
-                      {category.title}
-                    </h3>
-                    <p className="text-amber-400 text-sm font-medium mb-3">
-                      {category.tagline}
-                    </p>
-                  </div>
+      {/* Header */}
+      <div className="text-center space-y-2">
+        <h1 className="text-white text-2xl font-bold">
+          Choose Your Service Category
+        </h1>
+        <p className="text-amber-400">
+          Select the type of service you're looking for
+        </p>
+      </div>
 
-                  {/* Description */}
-                  <div className="flex-grow">
-                    <p className="text-gray-300 text-sm leading-relaxed text-center">
-                      <span style={{ fontSize: "12px" }}>
-                        {category.description}
-                      </span>
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+      {/* Category Grid - Direct rendering without container padding */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {categories.map((category) => (
+          <Card
+            key={category.id}
+            className={`cursor-pointer transition-all duration-300 h-full hover:scale-105 hover:border-amber-500/70 hover:bg-amber-900/20 ${
+              selectedCategory === category.id
+                ? "bg-amber-600/20 border-amber-500 ring-2 ring-amber-500/50"
+                : "bg-gray-800/60 border-gray-600"
+            }`}
+            onClick={() => onCategorySelect(category.id)}
+          >
+            <CardContent className="p-6 h-full flex flex-col justify-between">
+              {/* Icon and Title */}
+              <div className="text-center mb-4">
+                <div className="text-5xl mb-4">{category.emoji}</div>
+                <h3 className="text-white font-bold text-xl mb-2 leading-tight">
+                  {category.title}
+                </h3>
+                <p className="text-amber-400 text-sm font-medium mb-3">
+                  {category.tagline}
+                </p>
+              </div>
 
-      {/* Next Button - Outside card container, fixed position on mobile when category is selected */}
+              {/* Description */}
+              <div className="flex-grow">
+                <p className="text-gray-300 text-sm leading-relaxed text-center">
+                  <span style={{ fontSize: "12px" }}>
+                    {category.description}
+                  </span>
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      {/* Next Button - Fixed position on mobile when category is selected */}
       {selectedCategory && (
         <div className="text-center">
           <div className="md:relative fixed bottom-4 left-4 right-4 md:bottom-auto md:left-auto md:right-auto z-50">
