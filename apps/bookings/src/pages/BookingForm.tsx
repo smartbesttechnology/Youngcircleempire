@@ -52,9 +52,9 @@ interface Addon {
 const BookingForm = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
-  const [currentStep, setCurrentStep] = useState<
-    "category" | "services" | "details"
-  >("category");
+  const [currentStep, setCurrentStep] = useState<"category" | "booking">(
+    "category",
+  );
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(
     null,
   );
@@ -386,7 +386,7 @@ const BookingForm = () => {
       id: "creative-takeover",
       name: "Creative Takeover",
       categoryId: "empire-signature-packages",
-      category: "📦 EMPIRE SIGNATURE PACKAGES",
+      category: "��� EMPIRE SIGNATURE PACKAGES",
       tagline: "Studio Control | Creative Liberty | Artist in Residence",
       description:
         "Unlimited studio sessions for a set period, plus 1 music video, 2 professional photoshoots, and an artist growth strategy session to refine direction and positioning.",
@@ -485,18 +485,7 @@ const BookingForm = () => {
 
   const handleCategoryNext = () => {
     if (selectedCategoryId) {
-      setCurrentStep("services");
-    }
-  };
-
-  const handleServicesNext = () => {
-    if (formData.services.length > 0) {
-      setCurrentStep("details");
-    } else {
-      toast({
-        title: "Please select at least one service",
-        variant: "destructive",
-      });
+      setCurrentStep("booking");
     }
   };
 
@@ -569,9 +558,9 @@ const BookingForm = () => {
           />
         )}
 
-        {/* Services Selection Step */}
-        {currentStep === "services" && (
-          <div className="max-w-4xl mx-auto space-y-8">
+        {/* Combined Booking Step */}
+        {currentStep === "booking" && (
+          <form onSubmit={handleSubmit} className="max-w-4xl mx-auto space-y-8">
             {/* Back Button */}
             <Button
               onClick={() => setCurrentStep("category")}
@@ -690,31 +679,6 @@ const BookingForm = () => {
                 )}
               </CardContent>
             </Card>
-
-            {/* Next Button */}
-            <div className="text-center">
-              <Button
-                onClick={handleServicesNext}
-                className="bg-amber-600 hover:bg-amber-700 text-black font-bold px-8 py-3"
-              >
-                Continue to Booking Details
-              </Button>
-            </div>
-          </div>
-        )}
-
-        {/* Booking Details Step */}
-        {currentStep === "details" && (
-          <form onSubmit={handleSubmit} className="max-w-4xl mx-auto space-y-8">
-            {/* Back Button */}
-            <Button
-              onClick={() => setCurrentStep("services")}
-              variant="outline"
-              className="border-gray-600 text-gray-400 hover:text-white hover:border-white"
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Services
-            </Button>
 
             {/* Booking Details */}
             <Card className="bg-black/80 border-amber-500/30">
