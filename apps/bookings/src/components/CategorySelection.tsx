@@ -119,7 +119,9 @@ const CategorySelection = ({
                   {/* Description */}
                   <div className="flex-grow">
                     <p className="text-gray-300 text-sm leading-relaxed text-center">
-                      {category.description}
+                      <span style={{ fontSize: "12px" }}>
+                        {category.description}
+                      </span>
                     </p>
                   </div>
                 </CardContent>
