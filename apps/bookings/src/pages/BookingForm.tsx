@@ -660,9 +660,10 @@ const BookingForm = () => {
                                 type="button"
                                 variant="ghost"
                                 size="sm"
-                                onClick={() =>
-                                  toggleServiceExpansion(service.id)
-                                }
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  toggleServiceExpansion(service.id);
+                                }}
                                 className="text-amber-400 hover:text-amber-300 hover:bg-amber-900/20 flex items-center gap-2 px-3 py-1 text-sm"
                               >
                                 <div className="w-4 h-4 rounded-full border border-current flex items-center justify-center">
