@@ -612,28 +612,28 @@ const BookingForm = () => {
                   {filteredServices.map((service) => (
                     <div
                       key={service.id}
-                      className={`rounded-lg border transition-all duration-200 ${
+                      className={`rounded-lg border transition-all duration-200 cursor-pointer ${
                         formData.services.includes(service.id)
                           ? "bg-amber-600/20 border-amber-500/50"
                           : "bg-gray-800/30 border-gray-600/50 hover:border-gray-500/70"
                       }`}
+                      onClick={() =>
+                        handleServiceChange(
+                          service.id,
+                          !formData.services.includes(service.id),
+                        )
+                      }
                     >
                       <div className="p-5">
                         <div className="flex items-start gap-4">
                           {/* Radio Button */}
                           <div className="flex-shrink-0 mt-1">
                             <div
-                              className={`w-5 h-5 rounded-full border-2 cursor-pointer transition-colors duration-200 ${
+                              className={`w-5 h-5 rounded-full border-2 transition-colors duration-200 ${
                                 formData.services.includes(service.id)
                                   ? "border-amber-500 bg-amber-500"
                                   : "border-gray-400"
                               }`}
-                              onClick={() =>
-                                handleServiceChange(
-                                  service.id,
-                                  !formData.services.includes(service.id),
-                                )
-                              }
                             >
                               {formData.services.includes(service.id) && (
                                 <div className="w-full h-full rounded-full bg-white flex items-center justify-center">
