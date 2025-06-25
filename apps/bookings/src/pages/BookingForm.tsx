@@ -659,7 +659,7 @@ const BookingForm = () => {
 
                             {/* Expanded Description */}
                             {expandedServices.has(service.id) && (
-                              <div className="mt-4 p-4 bg-gray-800/50 rounded-md border border-gray-700/50 -ml-9">
+                              <div className="mt-4 -ml-9">
                                 <p className="text-gray-300 text-sm leading-relaxed">
                                   {service.description}
                                 </p>
