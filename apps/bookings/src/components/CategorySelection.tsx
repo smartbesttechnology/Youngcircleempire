@@ -21,9 +21,9 @@ const categories: CategoryData[] = [
     id: "empire-studio-session",
     emoji: "🎙️",
     title: "Empire Studio Session",
-    tagline: "Professional recording | Creative direction | Artist-focused",
+    tagline: "Professional recording | Creative Space | Artist-focused",
     description:
-      "State-of-the-art vocal recording for independent artists seeking commercial-quality sound with professional engineer guidance for maximum impact.",
+      "From quick vocal takes to full production camps, experience premium studio services designed for artists at every leve",
   },
   {
     id: "empire-video-visual",
@@ -31,7 +31,7 @@ const categories: CategoryData[] = [
     title: "Empire Video & Visual Production",
     tagline: "Cinematic quality | Creative direction | Social-ready",
     description:
-      "Concept videos, storytelling from ideation through professional-quality output including cinematic lighting, camera work, and professional post-production.",
+      "Complete visual storytelling from concept-based music videos to viral social content, all crafted with professional direction",
   },
   {
     id: "empire-photoshoot",
@@ -39,7 +39,7 @@ const categories: CategoryData[] = [
     title: "Empire Photoshoot",
     tagline: "Magazine-ready | Styled shoots | Brand imagery",
     description:
-      "High-level photography for artists, creatives, and brands with professional styling and art direction for your visual identity and market presence.",
+      "High-fashion photography for artists, couples, and brands with professional styling and creative direction",
   },
   {
     id: "empire-events-entertainment",
@@ -47,7 +47,7 @@ const categories: CategoryData[] = [
     title: "Empire Events & Entertainment",
     tagline: "Live experiences | Industry networking | Custom coverage",
     description:
-      "Event planning, hosting, and professional coverage from intimate listening parties to full showcase events with complete professional documentation.",
+      "From exclusive listening parties to showcase nights, create memorable events with full professional coverage.",
   },
   {
     id: "promotion-distribution",
@@ -71,7 +71,7 @@ const categories: CategoryData[] = [
     title: "Empire Signature Packages",
     tagline: "All-inclusive | Career development | Premium support",
     description:
-      "Comprehensive artist development programs combining multiple services for complete creative projects and long-term career growth with ongoing support.",
+      "Comprehensive packages combining multiple services for complete artist development and career advancement.",
   },
 ];
 
@@ -119,7 +119,9 @@ const CategorySelection = ({
                   {/* Description */}
                   <div className="flex-grow">
                     <p className="text-gray-300 text-sm leading-relaxed text-center">
-                      {category.description}
+                      <span style={{ fontSize: "12px" }}>
+                        {category.description}
+                      </span>
                     </p>
                   </div>
                 </CardContent>
