@@ -625,11 +625,11 @@ const BookingForm = () => {
                           {/* Service Content */}
                           <div className="flex-1">
                             <div className="flex items-start justify-between">
-                              <div className="-ml-9">
+                              <div>
                                 <h3 className="text-white font-medium text-lg mb-1 leading-tight">
                                   {service.name}
                                 </h3>
-                                <p className="text-amber-400 text-xs">
+                                <p className="text-amber-400 text-xs -ml-9">
                                   {service.tagline}
                                 </p>
                               </div>
