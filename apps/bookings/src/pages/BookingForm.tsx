@@ -260,7 +260,7 @@ const BookingForm = () => {
       id: "content-team-coverage",
       name: "Content Team Coverage + Livestream",
       categoryId: "empire-events-entertainment",
-      category: "🎭 EMPIRE EVENTS & ENTERTAINMENT",
+      category: "�� EMPIRE EVENTS & ENTERTAINMENT",
       tagline: "Multi-cam | Livestream-ready | Social-ready",
       description:
         "Get your event filmed, photographed, and live-streamed by a professional team.",
@@ -725,7 +725,7 @@ const BookingForm = () => {
 
                 {/* Add-ons Section - Only show if applicable services are selected */}
                 {shouldShowAddons && (
-                  <div className="mt-6 sm:mt-8 p-4 sm:p-6 bg-gradient-to-r from-amber-900/20 to-amber-800/20 rounded-lg border border-amber-500/30">
+                  <div className="mt-6 sm:mt-8">
                     <h3 className="text-amber-400 font-semibold mb-3 sm:mb-4 text-base sm:text-lg flex items-center">
                       <span className="mr-2">💎</span>
                       <span className="leading-tight">
@@ -733,28 +733,50 @@ const BookingForm = () => {
                       </span>
                     </h3>
                     <p className="text-gray-300 text-sm mb-4">
-                      Enhance your experience with these premium add-ons:
+                      Enhance your experience with these premium add-ons
+                      (multiple selections allowed):
                     </p>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="grid grid-cols-2 gap-3 sm:gap-4">
                       {addons.map((addon) => (
                         <div
                           key={addon.id}
-                          className="flex items-center space-x-3 p-3 bg-gray-800/50 rounded-lg"
+                          className={`rounded-lg border transition-all duration-200 cursor-pointer ${
+                            formData.addons.includes(addon.id)
+                              ? "bg-amber-600/20 border-amber-500/50"
+                              : "bg-gray-800/30 border-gray-600/50 hover:border-gray-500/70"
+                          }`}
+                          onClick={() =>
+                            handleAddonChange(
+                              addon.id,
+                              !formData.addons.includes(addon.id),
+                            )
+                          }
                         >
-                          <Checkbox
-                            id={addon.id}
-                            checked={formData.addons.includes(addon.id)}
-                            onCheckedChange={(checked) =>
-                              handleAddonChange(addon.id, checked as boolean)
-                            }
-                            className="flex-shrink-0"
-                          />
-                          <Label
-                            htmlFor={addon.id}
-                            className="text-white text-sm cursor-pointer leading-relaxed flex-1"
-                          >
-                            {addon.name}
-                          </Label>
+                          <div className="p-3 sm:p-4">
+                            <div className="flex items-start gap-2 sm:gap-3">
+                              {/* Checkbox indicator - styled like services radio */}
+                              <div className="flex-shrink-0 mt-1">
+                                <div
+                                  className={`w-4 h-4 sm:w-3 sm:h-3 rounded border transition-colors duration-200 flex items-center justify-center ${
+                                    formData.addons.includes(addon.id)
+                                      ? "bg-amber-600 border-amber-600"
+                                      : "bg-white border-white"
+                                  }`}
+                                >
+                                  {formData.addons.includes(addon.id) && (
+                                    <div className="w-1.5 h-1.5 bg-white rounded-sm"></div>
+                                  )}
+                                </div>
+                              </div>
+
+                              {/* Addon Content */}
+                              <div className="flex-1 min-w-0">
+                                <h4 className="text-white font-medium text-sm sm:text-base leading-tight">
+                                  {addon.name}
+                                </h4>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       ))}
                     </div>
