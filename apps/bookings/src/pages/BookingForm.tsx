@@ -282,7 +282,7 @@ const BookingForm = () => {
       id: "premium-distribution",
       name: "Premium Distribution with Launch Strategy",
       categoryId: "promotion-distribution",
-      category: "📢 PROMOTION & DISTRIBUTION",
+      category: "��� PROMOTION & DISTRIBUTION",
       tagline: "Global Access | Rollout Ready | Monetized",
       description:
         "We distribute your music across all major DSPs (Spotify, Apple Music, Boomplay, etc.) with a custom launch timeline, release strategy, metadata optimization, and monetization setup.",
@@ -1112,7 +1112,7 @@ const BookingForm = () => {
                         <SelectItem value="SD">🇸🇩 +249</SelectItem>
                         <SelectItem value="SR">🇸🇷 +597</SelectItem>
                         <SelectItem value="SE">🇸🇪 +46</SelectItem>
-                        <SelectItem value="CH">🇨🇭 +41</SelectItem>
+                        <SelectItem value="CH">🇨���� +41</SelectItem>
                         <SelectItem value="SY">🇸🇾 +963</SelectItem>
                         <SelectItem value="TJ">🇹🇯 +992</SelectItem>
                         <SelectItem value="TZ">🇹🇿 +255</SelectItem>
@@ -1197,7 +1197,7 @@ const BookingForm = () => {
               </CardHeader>
               <CardContent>
                 {/* Scrollable Terms Container */}
-                <div className="border border-gray-600 rounded-lg p-4 max-h-60 overflow-y-auto bg-gray-900/50 mb-6">
+                <div className="border border-gray-600 rounded-lg p-4 max-h-60 overflow-y-auto bg-gray-900/50 mb-6 terms-container">
                   <div className="text-white text-sm space-y-4">
                     <p>
                       These Terms & Conditions govern all studio session
