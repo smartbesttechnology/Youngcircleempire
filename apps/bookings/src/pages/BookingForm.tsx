@@ -386,7 +386,7 @@ const BookingForm = () => {
       id: "creative-takeover",
       name: "Creative Takeover",
       categoryId: "empire-signature-packages",
-      category: "��� EMPIRE SIGNATURE PACKAGES",
+      category: "����� EMPIRE SIGNATURE PACKAGES",
       tagline: "Studio Control | Creative Liberty | Artist in Residence",
       description:
         "Unlimited studio sessions for a set period, plus 1 music video, 2 professional photoshoots, and an artist growth strategy session to refine direction and positioning.",
@@ -722,18 +722,21 @@ const BookingForm = () => {
 
                 {/* Add-ons Section - Only show if applicable services are selected */}
                 {shouldShowAddons && (
-                  <div className="mt-8 p-6 bg-gradient-to-r from-amber-900/20 to-amber-800/20 rounded-lg border border-amber-500/30">
-                    <h3 className="text-amber-400 font-semibold mb-4 text-lg flex items-center">
-                      💎 PRIVATE EXPERIENCES ADD-ONS
+                  <div className="mt-6 sm:mt-8 p-4 sm:p-6 bg-gradient-to-r from-amber-900/20 to-amber-800/20 rounded-lg border border-amber-500/30">
+                    <h3 className="text-amber-400 font-semibold mb-3 sm:mb-4 text-base sm:text-lg flex items-center">
+                      <span className="mr-2">💎</span>
+                      <span className="leading-tight">
+                        PRIVATE EXPERIENCES ADD-ONS
+                      </span>
                     </h3>
                     <p className="text-gray-300 text-sm mb-4">
                       Enhance your experience with these premium add-ons:
                     </p>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {addons.map((addon) => (
                         <div
                           key={addon.id}
-                          className="flex items-center space-x-2 p-3 bg-gray-800/50 rounded-lg"
+                          className="flex items-center space-x-3 p-3 bg-gray-800/50 rounded-lg"
                         >
                           <Checkbox
                             id={addon.id}
@@ -741,10 +744,11 @@ const BookingForm = () => {
                             onCheckedChange={(checked) =>
                               handleAddonChange(addon.id, checked as boolean)
                             }
+                            className="flex-shrink-0"
                           />
                           <Label
                             htmlFor={addon.id}
-                            className="text-white text-sm cursor-pointer"
+                            className="text-white text-sm cursor-pointer leading-relaxed flex-1"
                           >
                             {addon.name}
                           </Label>
@@ -1094,7 +1098,7 @@ const BookingForm = () => {
                         <SelectItem value="SC">🇸🇨 +248</SelectItem>
                         <SelectItem value="SL">🇸🇱 +232</SelectItem>
                         <SelectItem value="SG">🇸🇬 +65</SelectItem>
-                        <SelectItem value="SK">🇸🇰 +421</SelectItem>
+                        <SelectItem value="SK">����🇰 +421</SelectItem>
                         <SelectItem value="SI">🇸🇮 +386</SelectItem>
                         <SelectItem value="SB">🇸🇧 +677</SelectItem>
                         <SelectItem value="SO">🇸🇴 +252</SelectItem>
