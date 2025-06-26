@@ -556,7 +556,10 @@ const BookingForm = () => {
 
         {/* Combined Booking Step */}
         {currentStep === "booking" && (
-          <form onSubmit={handleSubmit} className="max-w-4xl mx-auto space-y-8">
+          <form
+            onSubmit={handleSubmit}
+            className="max-w-4xl mx-auto space-y-6 sm:space-y-8 px-4 sm:px-6 lg:px-0"
+          >
             {/* Back Button */}
             <Button
               onClick={() => setCurrentStep("category")}
@@ -569,10 +572,10 @@ const BookingForm = () => {
 
             {/* Service Selection - New Design */}
             <Card className="bg-black/80 border-amber-500/30">
-              <CardContent className="p-8">
+              <CardContent className="p-4 sm:p-6 lg:p-8">
                 {/* Category Title with Icon */}
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="text-2xl">
+                  <div className="text-xl sm:text-2xl flex-shrink-0">
                     {selectedCategoryId === "empire-studio-session" && "🎙️"}
                     {selectedCategoryId === "empire-video-visual" && "🎬"}
                     {selectedCategoryId === "empire-photoshoot" && "📸"}
@@ -582,7 +585,7 @@ const BookingForm = () => {
                     {selectedCategoryId === "premium-artist-branding" && "🎨"}
                     {selectedCategoryId === "empire-signature-packages" && "📦"}
                   </div>
-                  <h1 className="text-amber-600 text-2xl font-semibold">
+                  <h1 className="text-amber-600 text-lg sm:text-xl lg:text-2xl font-semibold leading-tight">
                     {selectedCategoryId === "empire-studio-session" &&
                       "Empire Studio Session"}
                     {selectedCategoryId === "empire-video-visual" &&
@@ -600,11 +603,11 @@ const BookingForm = () => {
                   </h1>
                 </div>
 
-                <p className="text-gray-400 text-sm mb-8">
+                <p className="text-gray-400 text-sm mb-6 sm:mb-8">
                   Choose your specific service
                 </p>
 
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   {filteredServices.map((service) => (
                     <div
                       key={service.id}
@@ -620,12 +623,12 @@ const BookingForm = () => {
                         )
                       }
                     >
-                      <div className="p-5">
-                        <div className="flex items-start gap-0">
-                          {/* Radio Button */}
-                          <div className="flex-shrink-0 mt-0.5 mr-4">
+                      <div className="p-4 sm:p-5">
+                        <div className="flex items-start gap-3 sm:gap-4">
+                          {/* Radio Button - Larger on mobile */}
+                          <div className="flex-shrink-0 mt-1">
                             <div
-                              className={`w-3 h-3 rounded-full transition-colors duration-200 ${
+                              className={`w-4 h-4 sm:w-3 sm:h-3 rounded-full transition-colors duration-200 ${
                                 formData.services.includes(service.id)
                                   ? "bg-amber-600"
                                   : "bg-white"
@@ -634,18 +637,55 @@ const BookingForm = () => {
                           </div>
 
                           {/* Service Content */}
-                          <div className="flex-1">
-                            <div className="flex items-start justify-between">
-                              <div>
+                          <div className="flex-1 min-w-0">
+                            {/* Mobile Layout: Stack title and button */}
+                            <div className="sm:hidden">
+                              <h3 className="text-white font-medium text-base mb-2 leading-tight pr-2">
+                                {service.name}
+                              </h3>
+
+                              {/* More Info Button - Mobile */}
+                              <div className="flex items-center justify-between mb-3">
+                                <p className="text-amber-400 text-sm flex-1">
+                                  {service.tagline}
+                                </p>
+                                <Button
+                                  type="button"
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    toggleServiceExpansion(service.id);
+                                  }}
+                                  className="text-amber-400 hover:text-amber-300 hover:bg-amber-900/20 flex items-center gap-2 px-2 py-1 text-sm flex-shrink-0 ml-2"
+                                >
+                                  <div className="w-4 h-4 rounded-full border border-current flex items-center justify-center">
+                                    <span className="text-xs">i</span>
+                                  </div>
+                                  <span className="hidden sm:inline">
+                                    More Info
+                                  </span>
+                                  {expandedServices.has(service.id) ? (
+                                    <ChevronUp className="w-4 h-4" />
+                                  ) : (
+                                    <ChevronDown className="w-4 h-4" />
+                                  )}
+                                </Button>
+                              </div>
+                            </div>
+
+                            {/* Desktop Layout: Side by side */}
+                            <div className="hidden sm:flex sm:items-start sm:justify-between">
+                              <div className="flex-1">
                                 <h3 className="text-white font-medium text-lg mb-1 leading-tight">
                                   {service.name}
                                 </h3>
-                                <p className="text-amber-400 text-xs -ml-9">
+                                <p className="text-amber-400 text-xs">
                                   {service.tagline}
                                 </p>
                               </div>
 
-                              {/* More Info Button */}
+                              {/* More Info Button - Desktop */}
                               <Button
                                 type="button"
                                 variant="ghost"
@@ -670,8 +710,8 @@ const BookingForm = () => {
 
                             {/* Expanded Description */}
                             {expandedServices.has(service.id) && (
-                              <div className="mt-4 -ml-9">
-                                <p className="text-gray-300 text-sm leading-relaxed">
+                              <div className="mt-3 sm:mt-4">
+                                <p className="text-gray-300 text-sm sm:text-sm leading-relaxed">
                                   {service.description}
                                 </p>
                               </div>
@@ -685,18 +725,21 @@ const BookingForm = () => {
 
                 {/* Add-ons Section - Only show if applicable services are selected */}
                 {shouldShowAddons && (
-                  <div className="mt-8 p-6 bg-gradient-to-r from-amber-900/20 to-amber-800/20 rounded-lg border border-amber-500/30">
-                    <h3 className="text-amber-400 font-semibold mb-4 text-lg flex items-center">
-                      💎 PRIVATE EXPERIENCES ADD-ONS
+                  <div className="mt-6 sm:mt-8 p-4 sm:p-6 bg-gradient-to-r from-amber-900/20 to-amber-800/20 rounded-lg border border-amber-500/30">
+                    <h3 className="text-amber-400 font-semibold mb-3 sm:mb-4 text-base sm:text-lg flex items-center">
+                      <span className="mr-2">💎</span>
+                      <span className="leading-tight">
+                        PRIVATE EXPERIENCES ADD-ONS
+                      </span>
                     </h3>
                     <p className="text-gray-300 text-sm mb-4">
                       Enhance your experience with these premium add-ons:
                     </p>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {addons.map((addon) => (
                         <div
                           key={addon.id}
-                          className="flex items-center space-x-2 p-3 bg-gray-800/50 rounded-lg"
+                          className="flex items-center space-x-3 p-3 bg-gray-800/50 rounded-lg"
                         >
                           <Checkbox
                             id={addon.id}
@@ -704,10 +747,11 @@ const BookingForm = () => {
                             onCheckedChange={(checked) =>
                               handleAddonChange(addon.id, checked as boolean)
                             }
+                            className="flex-shrink-0"
                           />
                           <Label
                             htmlFor={addon.id}
-                            className="text-white text-sm cursor-pointer"
+                            className="text-white text-sm cursor-pointer leading-relaxed flex-1"
                           >
                             {addon.name}
                           </Label>
@@ -942,7 +986,7 @@ const BookingForm = () => {
                         <SelectItem value="CN">🇨🇳 +86</SelectItem>
                         <SelectItem value="CO">🇨🇴 +57</SelectItem>
                         <SelectItem value="KM">🇰🇲 +269</SelectItem>
-                        <SelectItem value="CG">🇨🇬 +242</SelectItem>
+                        <SelectItem value="CG">🇨��� +242</SelectItem>
                         <SelectItem value="CD">🇨🇩 +243</SelectItem>
                         <SelectItem value="CR">🇨🇷 +506</SelectItem>
                         <SelectItem value="CI">🇨🇮 +225</SelectItem>
@@ -999,7 +1043,7 @@ const BookingForm = () => {
                         <SelectItem value="LA">🇱🇦 +856</SelectItem>
                         <SelectItem value="LV">🇱🇻 +371</SelectItem>
                         <SelectItem value="LB">🇱🇧 +961</SelectItem>
-                        <SelectItem value="LS">🇱🇸 +266</SelectItem>
+                        <SelectItem value="LS">🇱���� +266</SelectItem>
                         <SelectItem value="LR">🇱🇷 +231</SelectItem>
                         <SelectItem value="LY">🇱🇾 +218</SelectItem>
                         <SelectItem value="LI">🇱🇮 +423</SelectItem>
@@ -1033,7 +1077,7 @@ const BookingForm = () => {
                         <SelectItem value="NO">🇳🇴 +47</SelectItem>
                         <SelectItem value="OM">🇴🇲 +968</SelectItem>
                         <SelectItem value="PK">🇵🇰 +92</SelectItem>
-                        <SelectItem value="PW">🇵🇼 +680</SelectItem>
+                        <SelectItem value="PW">���🇼 +680</SelectItem>
                         <SelectItem value="PA">🇵🇦 +507</SelectItem>
                         <SelectItem value="PG">🇵🇬 +675</SelectItem>
                         <SelectItem value="PY">🇵🇾 +595</SelectItem>
@@ -1084,7 +1128,7 @@ const BookingForm = () => {
                         <SelectItem value="UG">🇺🇬 +256</SelectItem>
                         <SelectItem value="UA">🇺🇦 +380</SelectItem>
                         <SelectItem value="AE">🇦🇪 +971</SelectItem>
-                        <SelectItem value="UY">🇺🇾 +598</SelectItem>
+                        <SelectItem value="UY">����🇾 +598</SelectItem>
                         <SelectItem value="UZ">🇺🇿 +998</SelectItem>
                         <SelectItem value="VU">🇻🇺 +678</SelectItem>
                         <SelectItem value="VA">🇻🇦 +39</SelectItem>
