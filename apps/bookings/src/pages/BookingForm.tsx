@@ -556,7 +556,10 @@ const BookingForm = () => {
 
         {/* Combined Booking Step */}
         {currentStep === "booking" && (
-          <form onSubmit={handleSubmit} className="max-w-4xl mx-auto space-y-8">
+          <form
+            onSubmit={handleSubmit}
+            className="max-w-4xl mx-auto space-y-6 sm:space-y-8 px-4 sm:px-6 lg:px-0"
+          >
             {/* Back Button */}
             <Button
               onClick={() => setCurrentStep("category")}
@@ -983,7 +986,7 @@ const BookingForm = () => {
                         <SelectItem value="CN">🇨🇳 +86</SelectItem>
                         <SelectItem value="CO">🇨🇴 +57</SelectItem>
                         <SelectItem value="KM">🇰🇲 +269</SelectItem>
-                        <SelectItem value="CG">🇨🇬 +242</SelectItem>
+                        <SelectItem value="CG">🇨��� +242</SelectItem>
                         <SelectItem value="CD">🇨🇩 +243</SelectItem>
                         <SelectItem value="CR">🇨🇷 +506</SelectItem>
                         <SelectItem value="CI">🇨🇮 +225</SelectItem>
