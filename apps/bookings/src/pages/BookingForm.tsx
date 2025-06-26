@@ -386,7 +386,7 @@ const BookingForm = () => {
       id: "creative-takeover",
       name: "Creative Takeover",
       categoryId: "empire-signature-packages",
-      category: "����� EMPIRE SIGNATURE PACKAGES",
+      category: "��� EMPIRE SIGNATURE PACKAGES",
       tagline: "Studio Control | Creative Liberty | Artist in Residence",
       description:
         "Unlimited studio sessions for a set period, plus 1 music video, 2 professional photoshoots, and an artist growth strategy session to refine direction and positioning.",
@@ -659,7 +659,7 @@ const BookingForm = () => {
                                   <div className="w-4 h-4 rounded-full border border-current flex items-center justify-center">
                                     <span className="text-xs">i</span>
                                   </div>
-                                  <span className="hidden xs:inline">
+                                  <span className="hidden sm:inline">
                                     More Info
                                   </span>
                                   {expandedServices.has(service.id) ? (
@@ -1040,7 +1040,7 @@ const BookingForm = () => {
                         <SelectItem value="LA">🇱🇦 +856</SelectItem>
                         <SelectItem value="LV">🇱🇻 +371</SelectItem>
                         <SelectItem value="LB">🇱🇧 +961</SelectItem>
-                        <SelectItem value="LS">🇱🇸 +266</SelectItem>
+                        <SelectItem value="LS">🇱���� +266</SelectItem>
                         <SelectItem value="LR">🇱🇷 +231</SelectItem>
                         <SelectItem value="LY">🇱🇾 +218</SelectItem>
                         <SelectItem value="LI">🇱🇮 +423</SelectItem>
@@ -1098,7 +1098,7 @@ const BookingForm = () => {
                         <SelectItem value="SC">🇸🇨 +248</SelectItem>
                         <SelectItem value="SL">🇸🇱 +232</SelectItem>
                         <SelectItem value="SG">🇸🇬 +65</SelectItem>
-                        <SelectItem value="SK">����🇰 +421</SelectItem>
+                        <SelectItem value="SK">🇸🇰 +421</SelectItem>
                         <SelectItem value="SI">🇸🇮 +386</SelectItem>
                         <SelectItem value="SB">🇸🇧 +677</SelectItem>
                         <SelectItem value="SO">🇸🇴 +252</SelectItem>
@@ -1125,7 +1125,7 @@ const BookingForm = () => {
                         <SelectItem value="UG">🇺🇬 +256</SelectItem>
                         <SelectItem value="UA">🇺🇦 +380</SelectItem>
                         <SelectItem value="AE">🇦🇪 +971</SelectItem>
-                        <SelectItem value="UY">🇺🇾 +598</SelectItem>
+                        <SelectItem value="UY">����🇾 +598</SelectItem>
                         <SelectItem value="UZ">🇺🇿 +998</SelectItem>
                         <SelectItem value="VU">🇻🇺 +678</SelectItem>
                         <SelectItem value="VA">🇻🇦 +39</SelectItem>
