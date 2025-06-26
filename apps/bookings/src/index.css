@@ -101,3 +101,36 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Hide scrollbars for specific components while maintaining scroll functionality */
+@layer components {
+  /* Hide scrollbar for sidebar content */
+  [data-sidebar="content"] {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+  }
+
+  [data-sidebar="content"]::-webkit-scrollbar {
+    display: none; /* WebKit */
+  }
+
+  /* Hide scrollbar for terms and conditions container */
+  .terms-container {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+  }
+
+  .terms-container::-webkit-scrollbar {
+    display: none; /* WebKit */
+  }
+
+  /* Hide scrollbar for any form container that might scroll */
+  .form-scroll-container {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+  }
+
+  .form-scroll-container::-webkit-scrollbar {
+    display: none; /* WebKit */
+  }
+}
