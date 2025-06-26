@@ -604,7 +604,7 @@ const BookingForm = () => {
                   Choose your specific service
                 </p>
 
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   {filteredServices.map((service) => (
                     <div
                       key={service.id}
@@ -620,12 +620,12 @@ const BookingForm = () => {
                         )
                       }
                     >
-                      <div className="p-5">
-                        <div className="flex items-start gap-0">
-                          {/* Radio Button */}
-                          <div className="flex-shrink-0 mt-0.5 mr-4">
+                      <div className="p-4 sm:p-5">
+                        <div className="flex items-start gap-3 sm:gap-4">
+                          {/* Radio Button - Larger on mobile */}
+                          <div className="flex-shrink-0 mt-1">
                             <div
-                              className={`w-3 h-3 rounded-full transition-colors duration-200 ${
+                              className={`w-4 h-4 sm:w-3 sm:h-3 rounded-full transition-colors duration-200 ${
                                 formData.services.includes(service.id)
                                   ? "bg-amber-600"
                                   : "bg-white"
@@ -634,18 +634,55 @@ const BookingForm = () => {
                           </div>
 
                           {/* Service Content */}
-                          <div className="flex-1">
-                            <div className="flex items-start justify-between">
-                              <div>
+                          <div className="flex-1 min-w-0">
+                            {/* Mobile Layout: Stack title and button */}
+                            <div className="sm:hidden">
+                              <h3 className="text-white font-medium text-base mb-2 leading-tight pr-2">
+                                {service.name}
+                              </h3>
+
+                              {/* More Info Button - Mobile */}
+                              <div className="flex items-center justify-between mb-3">
+                                <p className="text-amber-400 text-sm flex-1">
+                                  {service.tagline}
+                                </p>
+                                <Button
+                                  type="button"
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    toggleServiceExpansion(service.id);
+                                  }}
+                                  className="text-amber-400 hover:text-amber-300 hover:bg-amber-900/20 flex items-center gap-2 px-2 py-1 text-sm flex-shrink-0 ml-2"
+                                >
+                                  <div className="w-4 h-4 rounded-full border border-current flex items-center justify-center">
+                                    <span className="text-xs">i</span>
+                                  </div>
+                                  <span className="hidden xs:inline">
+                                    More Info
+                                  </span>
+                                  {expandedServices.has(service.id) ? (
+                                    <ChevronUp className="w-4 h-4" />
+                                  ) : (
+                                    <ChevronDown className="w-4 h-4" />
+                                  )}
+                                </Button>
+                              </div>
+                            </div>
+
+                            {/* Desktop Layout: Side by side */}
+                            <div className="hidden sm:flex sm:items-start sm:justify-between">
+                              <div className="flex-1">
                                 <h3 className="text-white font-medium text-lg mb-1 leading-tight">
                                   {service.name}
                                 </h3>
-                                <p className="text-amber-400 text-xs -ml-9">
+                                <p className="text-amber-400 text-xs">
                                   {service.tagline}
                                 </p>
                               </div>
 
-                              {/* More Info Button */}
+                              {/* More Info Button - Desktop */}
                               <Button
                                 type="button"
                                 variant="ghost"
@@ -670,8 +707,8 @@ const BookingForm = () => {
 
                             {/* Expanded Description */}
                             {expandedServices.has(service.id) && (
-                              <div className="mt-4 -ml-9">
-                                <p className="text-gray-300 text-sm leading-relaxed">
+                              <div className="mt-3 sm:mt-4">
+                                <p className="text-gray-300 text-sm sm:text-sm leading-relaxed">
                                   {service.description}
                                 </p>
                               </div>
