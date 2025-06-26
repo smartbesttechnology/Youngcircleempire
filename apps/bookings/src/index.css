@@ -100,4 +100,83 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Hide all scrollbars globally for the booking app */
+  html,
+  body {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none; /* WebKit */
+  }
+}
+
+/* Hide scrollbars for specific components while maintaining scroll functionality */
+@layer components {
+  /* Hide scrollbar for sidebar content */
+  [data-sidebar="content"] {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+  }
+
+  [data-sidebar="content"]::-webkit-scrollbar {
+    display: none; /* WebKit */
+  }
+
+  /* Hide scrollbar for terms and conditions container */
+  .terms-container {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+  }
+
+  .terms-container::-webkit-scrollbar {
+    display: none; /* WebKit */
+  }
+
+  /* Hide scrollbar for any form container that might scroll */
+  .form-scroll-container {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+  }
+
+  .form-scroll-container::-webkit-scrollbar {
+    display: none; /* WebKit */
+  }
+
+  /* Hide scrollbar for table containers */
+  .table-container {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+  }
+
+  .table-container::-webkit-scrollbar {
+    display: none; /* WebKit */
+  }
+
+  /* Hide scrollbars for any element with overflow-auto or overflow-y-auto */
+  .overflow-auto,
+  .overflow-y-auto,
+  .overflow-x-auto {
+    scrollbar-width: none !important; /* Firefox */
+    -ms-overflow-style: none !important; /* Internet Explorer 10+ */
+  }
+
+  .overflow-auto::-webkit-scrollbar,
+  .overflow-y-auto::-webkit-scrollbar,
+  .overflow-x-auto::-webkit-scrollbar {
+    display: none !important; /* WebKit */
+  }
+
+  /* Hide scrollbars for main page containers */
+  .min-h-screen {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+  }
+
+  .min-h-screen::-webkit-scrollbar {
+    display: none; /* WebKit */
+  }
 }
