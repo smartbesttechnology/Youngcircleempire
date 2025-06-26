@@ -569,10 +569,10 @@ const BookingForm = () => {
 
             {/* Service Selection - New Design */}
             <Card className="bg-black/80 border-amber-500/30">
-              <CardContent className="p-8">
+              <CardContent className="p-4 sm:p-6 lg:p-8">
                 {/* Category Title with Icon */}
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="text-2xl">
+                  <div className="text-xl sm:text-2xl flex-shrink-0">
                     {selectedCategoryId === "empire-studio-session" && "🎙️"}
                     {selectedCategoryId === "empire-video-visual" && "🎬"}
                     {selectedCategoryId === "empire-photoshoot" && "📸"}
@@ -582,7 +582,7 @@ const BookingForm = () => {
                     {selectedCategoryId === "premium-artist-branding" && "🎨"}
                     {selectedCategoryId === "empire-signature-packages" && "📦"}
                   </div>
-                  <h1 className="text-amber-600 text-2xl font-semibold">
+                  <h1 className="text-amber-600 text-lg sm:text-xl lg:text-2xl font-semibold leading-tight">
                     {selectedCategoryId === "empire-studio-session" &&
                       "Empire Studio Session"}
                     {selectedCategoryId === "empire-video-visual" &&
@@ -600,7 +600,7 @@ const BookingForm = () => {
                   </h1>
                 </div>
 
-                <p className="text-gray-400 text-sm mb-8">
+                <p className="text-gray-400 text-sm mb-6 sm:mb-8">
                   Choose your specific service
                 </p>
 
@@ -1070,7 +1070,7 @@ const BookingForm = () => {
                         <SelectItem value="NO">🇳🇴 +47</SelectItem>
                         <SelectItem value="OM">🇴🇲 +968</SelectItem>
                         <SelectItem value="PK">🇵🇰 +92</SelectItem>
-                        <SelectItem value="PW">🇵🇼 +680</SelectItem>
+                        <SelectItem value="PW">���🇼 +680</SelectItem>
                         <SelectItem value="PA">🇵🇦 +507</SelectItem>
                         <SelectItem value="PG">🇵🇬 +675</SelectItem>
                         <SelectItem value="PY">🇵🇾 +595</SelectItem>
