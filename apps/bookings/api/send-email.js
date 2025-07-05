@@ -1,3 +1,4 @@
+// Get API key from environment variables (set via Vercel-Resend integration)
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
 
 module.exports = async function handler(req, res) {
@@ -17,20 +18,32 @@ module.exports = async function handler(req, res) {
   }
 
   try {
+    console.log('📧 Vercel API route called for email sending...');
+    console.log('🔑 Environment variables check:');
+    console.log('- RESEND_API_KEY available:', RESEND_API_KEY ? 'Yes' : 'No');
+    console.log('- RESEND_API_KEY length:', RESEND_API_KEY ? RESEND_API_KEY.length : 0);
+
     // Check if API key is available
     if (!RESEND_API_KEY) {
       console.error('❌ RESEND_API_KEY environment variable is not set');
+      console.error('💡 Make sure you have configured the Vercel-Resend integration');
       return res.status(500).json({
         success: false,
-        error: 'Email service not configured. Please set RESEND_API_KEY environment variable.'
+        error: 'Email service not configured. RESEND_API_KEY environment variable is missing.'
       });
     }
 
     const { customerName, customerEmail, services, bookingDate, bookingTime, notes } = req.body;
 
-    console.log('📧 Sending email via Vercel API route...');
-    console.log('Email data:', { customerName, customerEmail, services, bookingDate, bookingTime });
-    console.log('🔑 API Key available:', RESEND_API_KEY ? 'Yes' : 'No');
+    console.log('📧 Email request data:', { customerName, customerEmail, services, bookingDate, bookingTime });
+
+    // Validate required fields
+    if (!customerName || !customerEmail || !services || !bookingDate || !bookingTime) {
+      return res.status(400).json({
+        success: false,
+        error: 'Missing required fields: customerName, customerEmail, services, bookingDate, bookingTime'
+      });
+    }
 
     // Generate email HTML
     const servicesText = services.join(", ");
@@ -74,43 +87,69 @@ module.exports = async function handler(req, res) {
     `;
 
     // Send email via Resend API
+    console.log('📡 Calling Resend API...');
+    console.log('🔗 API URL: https://api.resend.com/emails');
+    console.log('📧 From: Young Circle Empire <bookings@ycempire.studio>');
+    console.log('📧 To:', customerEmail);
+
+    const emailPayload = {
+      from: 'Young Circle Empire <bookings@ycempire.studio>',
+      to: customerEmail,
+      subject: '🎙️ YC Empire Booking Confirmation',
+      html: emailHTML,
+    };
+
+    console.log('📦 Email payload prepared');
+
     const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${RESEND_API_KEY}`,
       },
-      body: JSON.stringify({
-        from: 'Young Circle Empire <bookings@ycempire.studio>',
-        to: customerEmail,
-        subject: '🎙️ YC Empire Booking Confirmation',
-        html: emailHTML,
-      }),
+      body: JSON.stringify(emailPayload),
     });
+
+    console.log('📡 Resend API response status:', response.status);
+    console.log('📡 Resend API response headers:', Object.fromEntries(response.headers.entries()));
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('❌ Resend API error:', errorText);
-      return res.status(500).json({ 
-        success: false, 
-        error: 'Failed to send email',
-        details: errorText 
+      console.error('❌ Resend API error details:');
+      console.error('- Status:', response.status);
+      console.error('- Status Text:', response.statusText);
+      console.error('- Error Body:', errorText);
+
+      return res.status(500).json({
+        success: false,
+        error: 'Failed to send email via Resend API',
+        details: {
+          status: response.status,
+          statusText: response.statusText,
+          error: errorText
+        }
       });
     }
 
     const result = await response.json();
-    console.log('✅ Email sent successfully:', result);
+    console.log('✅ Email sent successfully via Resend API!');
+    console.log('📧 Email ID:', result.id);
+    console.log('📧 Full response:', result);
 
-    return res.status(200).json({ 
-      success: true, 
-      emailId: result.id 
+    return res.status(200).json({
+      success: true,
+      emailId: result.id,
+      message: 'Email sent successfully'
     });
 
   } catch (error) {
     console.error('💥 Vercel API route error:', error);
-    return res.status(500).json({ 
-      success: false, 
-      error: error.message 
+    console.error('💥 Error stack:', error.stack);
+
+    return res.status(500).json({
+      success: false,
+      error: error.message,
+      type: 'server_error'
     });
   }
 }
