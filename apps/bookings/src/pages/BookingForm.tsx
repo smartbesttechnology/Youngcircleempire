@@ -57,32 +57,7 @@ const BookingForm = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  // Temporary test function for debugging email integration
-  const testEmailIntegration = async () => {
-    try {
-      console.log("🧪 Testing email integration...");
 
-      const testData = {
-        customerName: "Test User",
-        customerEmail: "test@example.com", // Change this to your email
-        services: ["Pro Vocal Session"],
-        bookingDate: "2025-01-20",
-        bookingTime: "15:00",
-        notes: "Test booking for email integration debugging"
-      };
-
-      const success = await sendBookingConfirmationEmail(testData);
-
-      if (success) {
-        alert("✅ Email test successful! Check your inbox and Vercel logs.");
-      } else {
-        alert("❌ Email test failed. Check browser console and Vercel logs for details.");
-      }
-    } catch (error) {
-      console.error("💥 Email test error:", error);
-      alert("💥 Email test error: " + error.message);
-    }
-  };
 
   const [currentStep, setCurrentStep] = useState<"category" | "booking">(
     "category",
@@ -1514,16 +1489,6 @@ const BookingForm = () => {
             </Card>
           </form>
         )}
-
-        {/* Debug Test Button - Remove in production */}
-        <div className="fixed bottom-4 right-4 z-50">
-          <Button
-            onClick={testEmailIntegration}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg"
-          >
-            🧪 Test Email
-          </Button>
-        </div>
 
         <BookingConfirmationModal
           isOpen={showConfirmation}

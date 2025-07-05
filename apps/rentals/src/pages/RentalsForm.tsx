@@ -60,34 +60,7 @@ const RentalsForm = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  // Temporary test function for debugging email integration
-  const testEmailIntegration = async () => {
-    try {
-      console.log("🧪 Testing rental email integration...");
-      
-      const testData = {
-        customerName: "Test User",
-        customerEmail: "test@example.com", // Change this to your email
-        equipment: ["Professional Camera"],
-        pickupDate: "2025-01-20",
-        pickupTime: "10:00",
-        returnDate: "2025-01-22",
-        returnTime: "18:00",
-        notes: "Test rental for email integration debugging"
-      };
-      
-      const success = await sendRentalConfirmationEmail(testData);
-      
-      if (success) {
-        alert("✅ Rental email test successful! Check your inbox and Vercel logs.");
-      } else {
-        alert("❌ Rental email test failed. Check browser console and Vercel logs for details.");
-      }
-    } catch (error) {
-      console.error("💥 Rental email test error:", error);
-      alert("💥 Rental email test error: " + error.message);
-    }
-  };
+
 
   const [currentStep, setCurrentStep] = useState<"category" | "equipment">(
     "category",
@@ -1026,16 +999,6 @@ const RentalsForm = () => {
             </Card>
           </form>
         )}
-
-        {/* Debug Test Button - Remove in production */}
-        <div className="fixed bottom-4 right-4 z-50">
-          <Button
-            onClick={testEmailIntegration}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg"
-          >
-            🧪 Test Email
-          </Button>
-        </div>
 
         <RentalConfirmationModal
           isOpen={showConfirmation}
