@@ -1,22 +1,21 @@
 {
-  "name": "vite_react_shadcn_ts",
+  "name": "yc-empire-monorepo",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "workspaces": [
     "apps/*"
   ],
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "build:dev": "vite build --mode development",
-    "lint": "eslint .",
-    "preview": "vite preview",
     "dev:admin": "npm --workspace apps/admin run dev",
     "dev:bookings": "npm --workspace apps/bookings run dev",
     "dev:rentals": "npm --workspace apps/rentals run dev",
-    "dev:main": "npm --workspace apps/main run dev",
-    "dev:links": "npm --workspace apps/links run dev"
+    "dev:links": "npm --workspace apps/links run dev",
+    "build:admin": "npm --workspace apps/admin run build",
+    "build:bookings": "npm --workspace apps/bookings run build",
+    "build:rentals": "npm --workspace apps/rentals run build",
+    "build:links": "npm --workspace apps/links run build",
+    "lint": "npm --workspace apps/admin run lint && npm --workspace apps/bookings run lint && npm --workspace apps/rentals run lint && npm --workspace apps/links run lint"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",

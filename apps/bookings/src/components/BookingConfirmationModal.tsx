@@ -20,6 +20,8 @@ interface BookingData {
   duration: string;
   people: string;
   notes: string;
+  instagramHandle: string;
+  tiktokHandle: string;
 }
 
 interface Service {
@@ -41,6 +43,7 @@ interface BookingConfirmationModalProps {
   bookingData: BookingData;
   services: Service[];
   addons: Addon[];
+  isSubmitting?: boolean;
 }
 
 const BookingConfirmationModal = ({
@@ -50,6 +53,7 @@ const BookingConfirmationModal = ({
   bookingData,
   services,
   addons,
+  isSubmitting = false,
 }: BookingConfirmationModalProps) => {
   const selectedServices = services.filter((service) =>
     bookingData.services.includes(service.id),
@@ -92,6 +96,18 @@ const BookingConfirmationModal = ({
                   <span className="text-gray-400">Preferred Contact:</span>{" "}
                   {bookingData.contactMethod}
                 </p>
+                {bookingData.instagramHandle && (
+                  <p>
+                    <span className="text-gray-400">Instagram:</span>{" "}
+                    {bookingData.instagramHandle}
+                  </p>
+                )}
+                {bookingData.tiktokHandle && (
+                  <p>
+                    <span className="text-gray-400">TikTok:</span>{" "}
+                    {bookingData.tiktokHandle}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -185,19 +201,13 @@ const BookingConfirmationModal = ({
           </div>
         </ScrollArea>
 
-        <div className="flex gap-4 pt-4">
-          <Button
-            onClick={onClose}
-            variant="outline"
-            className="flex-1 border-gray-600 text-white hover:bg-gray-800"
-          >
-            Edit Details
-          </Button>
+        <div className="flex pt-4">
           <Button
             onClick={onConfirm}
-            className="flex-1 bg-amber-600 hover:bg-amber-700 text-black font-bold"
+            disabled={isSubmitting}
+            className="w-full bg-amber-600 hover:bg-amber-700 text-black font-bold disabled:opacity-50"
           >
-            Confirm Booking
+            {isSubmitting ? "Processing..." : "Confirm Booking"}
           </Button>
         </div>
       </DialogContent>

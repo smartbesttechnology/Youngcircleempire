@@ -17,12 +17,6 @@ const ThankYou = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-amber-900 flex items-center justify-center">
       <div className="text-center max-w-2xl mx-auto px-4">
-        <img 
-          src="https://i.postimg.cc/XYtQC54J/YCE-LOGO-ICON.png" 
-          alt="Young Circle Empire" 
-          className="mx-auto mb-8 h-32 w-auto"
-        />
-        
         <div className="mb-8">
           <CheckCircle className="mx-auto w-20 h-20 text-green-500 mb-4" />
           <h1 className="text-4xl font-bold text-white mb-4">Thank You!</h1>

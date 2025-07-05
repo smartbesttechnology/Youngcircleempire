@@ -18,6 +18,8 @@ import { useNavigate } from "react-router-dom";
 import { ChevronDown, ChevronUp, ArrowLeft } from "lucide-react";
 import BookingConfirmationModal from "@/components/BookingConfirmationModal";
 import CategorySelection from "@/components/CategorySelection";
+import { supabase } from "@/integrations/supabase/client";
+import { sendBookingConfirmationEmail } from "@/lib/email";
 
 interface BookingData {
   firstName: string;
@@ -32,6 +34,8 @@ interface BookingData {
   duration: string;
   people: string;
   notes: string;
+  instagramHandle: string;
+  tiktokHandle: string;
 }
 
 interface Service {
@@ -52,6 +56,265 @@ interface Addon {
 const BookingForm = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
+
+  // Test function for debugging Supabase connection
+  const testSupabaseConnection = async () => {
+    try {
+      console.log("Testing Supabase connection...");
+      const { data, error } = await supabase.from("bookings").select("count").limit(1);
+      if (error) {
+        console.error("Supabase connection test failed:", error);
+      } else {
+        console.log("Supabase connection test successful:", data);
+      }
+    } catch (err) {
+      console.error("Supabase connection test error:", err);
+    }
+  };
+
+  // Test function for debugging insert
+  const testSupabaseInsert = async () => {
+    try {
+      console.log("Testing Supabase insert...");
+      const testData = {
+        first_name: "Test",
+        last_name: "User",
+        email: "test@example.com",
+        phone: "1234567890",
+        contact_method: "WhatsApp",
+        services: ["test-service"],
+        addons: [],
+        booking_date: "2024-01-20",
+        booking_time: "15:00"
+      };
+
+      const { data, error } = await supabase.from("bookings").insert(testData).select().single();
+      if (error) {
+        console.error("Supabase insert test failed:", error);
+      } else {
+        console.log("Supabase insert test successful:", data);
+        // Clean up test record
+        await supabase.from("bookings").delete().eq("id", data.id);
+      }
+    } catch (err) {
+      console.error("Supabase insert test error:", err);
+    }
+  };
+
+  // Test function for debugging email
+  const testEmailSend = async (email = "test@example.com") => {
+    try {
+      console.log("🧪 Testing email send to:", email);
+      console.log("⚠️ Note: May fail in development due to CORS, but will work in production");
+
+      const testEmailData = {
+        customerName: "Test User",
+        customerEmail: email,
+        services: ["Pro Vocal Session"],
+        bookingDate: "2025-01-20",
+        bookingTime: "15:00",
+        notes: "Test booking from debug function"
+      };
+
+      console.log("📧 Test email data:", testEmailData);
+      const emailSent = await sendBookingConfirmationEmail(testEmailData);
+
+      if (emailSent) {
+        console.log("✅ Test email sent successfully!");
+        alert("✅ Test email sent successfully! Check your inbox.");
+      } else {
+        console.log("❌ Test email failed (likely CORS in development)");
+        alert("❌ Email failed in development (CORS issue).\nThis will work when deployed to production!");
+      }
+    } catch (err) {
+      console.error("💥 Test email error:", err);
+      alert("💥 Email error (likely CORS): " + err.message + "\n\nThis will work in production!");
+    }
+  };
+
+  // Direct Resend API test
+  const testResendAPI = async () => {
+    try {
+      console.log("🧪 Testing Resend API directly...");
+
+      const response = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer re_9cV1L9Ei_BMnNeSB6cTux4UZqncN1Zcux"
+        },
+        body: JSON.stringify({
+          from: "Young Circle Empire <bookings@ycempire.studio>",
+          to: "test@example.com",
+          subject: "Test Email from YC Empire",
+          html: "<h1>Test Email</h1><p>This is a test email from Young Circle Empire booking system.</p>"
+        })
+      });
+
+      console.log("📡 Direct API Response status:", response.status);
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log("✅ Direct API test successful:", result);
+      } else {
+        const error = await response.text();
+        console.error("❌ Direct API test failed:", error);
+      }
+    } catch (err) {
+      console.error("💥 Direct API test error:", err);
+    }
+  };
+
+  // Comprehensive Resend SMTP test with detailed diagnostics
+  const testResendSMTP = async (testEmail = "test@example.com") => {
+    console.log("🧪 COMPREHENSIVE RESEND SMTP DIAGNOSTIC TEST");
+    console.log("=" .repeat(60));
+
+    try {
+      // Test 1: API Key validation
+      console.log("🔑 Test 1: API Key Analysis...");
+      const apiKey = "re_9cV1L9Ei_BMnNeSB6cTux4UZqncN1Zcux";
+      console.log("✓ API Key format:", apiKey.substring(0, 10) + "...");
+      console.log("✓ API Key length:", apiKey.length);
+      console.log("✓ API Key starts with 're_':", apiKey.startsWith('re_'));
+
+      // Test 2: Network connectivity test
+      console.log("\n🌐 Test 2: Network Connectivity...");
+      console.log("✓ Testing connection to Resend API...");
+
+      // Test 3: API Authentication test (without sending email)
+      console.log("\n🔐 Test 3: API Authentication Test...");
+
+      try {
+        const authTestResponse = await fetch("https://api.resend.com/domains", {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${apiKey}`
+          }
+        });
+
+        console.log("📡 Auth test status:", authTestResponse.status);
+
+        if (authTestResponse.ok) {
+          const domains = await authTestResponse.json();
+          console.log("✅ API KEY IS VALID!");
+          console.log("📋 Your domains:", domains);
+        } else {
+          const authError = await authTestResponse.text();
+          console.error("❌ API KEY AUTHENTICATION FAILED!");
+          console.error("Auth error:", authError);
+          alert(`❌ API KEY ISSUE!\n\nStatus: ${authTestResponse.status}\nError: ${authError}\n\nYou may need to create a new API key.`);
+          return;
+        }
+      } catch (authErr) {
+        console.error("💥 Authentication test failed:", authErr);
+        alert(`💥 NETWORK/AUTH ERROR: ${authErr.message}\n\nCheck your internet connection or API key.`);
+        return;
+      }
+
+      // Test 4: Simple email test with minimal payload
+      console.log("\n📧 Test 4: Minimal Email Test...");
+      const minimalEmailPayload = {
+        from: "bookings@ycempire.studio",
+        to: testEmail,
+        subject: "Test Email",
+        html: "<h1>Test</h1>"
+      };
+
+      console.log("📦 Minimal payload:", minimalEmailPayload);
+
+      const response = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${apiKey}`
+        },
+        body: JSON.stringify(minimalEmailPayload)
+      });
+
+      console.log("📡 Email response status:", response.status);
+      console.log("📡 Email response headers:", Object.fromEntries(response.headers.entries()));
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log("✅ EMAIL SENT SUCCESSFULLY!");
+        console.log("📧 Email ID:", result.id);
+        console.log("📧 Full response:", result);
+        alert(`✅ EMAIL TEST SUCCESSFUL!\n\nEmail ID: ${result.id}\nCheck ${testEmail} for the test email.\n\nThe API is working correctly!`);
+      } else {
+        const errorText = await response.text();
+        console.error("❌ EMAIL SEND FAILED!");
+        console.error("Error details:", {
+          status: response.status,
+          statusText: response.statusText,
+          error: errorText
+        });
+
+        // Provide specific guidance based on error
+        let guidance = "";
+        if (response.status === 401) {
+          guidance = "\n🔧 SOLUTION: Create a new API key in Resend dashboard";
+        } else if (response.status === 403) {
+          guidance = "\n🔧 SOLUTION: Check domain verification or API key permissions";
+        } else if (response.status === 422) {
+          guidance = "\n🔧 SOLUTION: Check email format or domain configuration";
+        }
+
+        alert(`❌ EMAIL SEND FAILED!\n\nStatus: ${response.status}\nError: ${errorText}${guidance}`);
+      }
+
+    } catch (error) {
+      console.error("💥 DIAGNOSTIC TEST ERROR:", error);
+      alert(`💥 DIAGNOSTIC ERROR: ${error.message}\n\nThis might be a network or CORS issue.`);
+    }
+
+    console.log("=" .repeat(60));
+    console.log("🧪 DIAGNOSTIC TEST COMPLETED");
+  };
+
+  // Function to test with a new API key
+  const testWithNewAPIKey = async (newApiKey: string, testEmail = "test@example.com") => {
+    console.log("🔄 TESTING WITH NEW API KEY...");
+    console.log("New API Key:", newApiKey.substring(0, 10) + "...");
+
+    try {
+      const response = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${newApiKey}`
+        },
+        body: JSON.stringify({
+          from: "bookings@ycempire.studio",
+          to: testEmail,
+          subject: "New API Key Test",
+          html: "<h1>Testing New API Key</h1><p>This email was sent with a new API key.</p>"
+        })
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log("✅ NEW API KEY WORKS!");
+        console.log("Email ID:", result.id);
+        alert(`✅ NEW API KEY WORKS!\n\nEmail ID: ${result.id}\n\nUpdate your code with this new API key.`);
+      } else {
+        const error = await response.text();
+        console.error("❌ New API key failed:", error);
+        alert(`❌ NEW API KEY FAILED!\n\nError: ${error}`);
+      }
+    } catch (err) {
+      console.error("💥 New API key test error:", err);
+      alert(`💥 ERROR: ${err.message}`);
+    }
+  };
+
+  // Make test functions available globally for debugging
+  (window as any).testSupabaseConnection = testSupabaseConnection;
+  (window as any).testSupabaseInsert = testSupabaseInsert;
+  (window as any).testEmailSend = testEmailSend;
+  (window as any).testResendAPI = testResendAPI;
+  (window as any).testResendSMTP = testResendSMTP;
+  (window as any).testWithNewAPIKey = testWithNewAPIKey;
   const [currentStep, setCurrentStep] = useState<"category" | "booking">(
     "category",
   );
@@ -59,6 +322,7 @@ const BookingForm = () => {
     null,
   );
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [expandedServices, setExpandedServices] = useState<Set<string>>(
     new Set(),
   );
@@ -75,6 +339,8 @@ const BookingForm = () => {
     duration: "",
     people: "",
     notes: "",
+    instagramHandle: "",
+    tiktokHandle: "",
   });
 
   // Service data mapped to new category IDs
@@ -495,10 +761,24 @@ const BookingForm = () => {
       !formData.lastName ||
       !formData.phone ||
       !formData.email ||
+      !formData.date ||
+      !formData.time ||
       formData.services.length === 0
     ) {
       toast({
         title: "Please fill in all required fields",
+        description: "Name, email, phone, date, time, and at least one service are required.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast({
+        title: "Invalid email address",
+        description: "Please enter a valid email address.",
         variant: "destructive",
       });
       return;
@@ -508,22 +788,95 @@ const BookingForm = () => {
   };
 
   const handleConfirmBooking = async () => {
+    setIsSubmitting(true);
     try {
       console.log("Booking confirmed:", formData);
 
+      // Step 1: Save booking data to Supabase
+      const bookingData = {
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        email: formData.email,
+        phone: formData.phone,
+        contact_method: formData.contactMethod || "WhatsApp",
+        services: formData.services,
+        addons: formData.addons || [],
+        booking_date: formData.date,
+        booking_time: formData.time,
+        duration: formData.duration || "1 hour",
+        people: formData.people || null,
+        notes: formData.notes || null,
+        instagram_handle: formData.instagramHandle || null,
+        tiktok_handle: formData.tiktokHandle || null
+      };
+
+      console.log("Attempting to save booking data:", bookingData);
+      console.log("Form data services:", formData.services);
+      console.log("Form data addons:", formData.addons);
+
+      const { data: insertedBooking, error: supabaseError } = await supabase
+        .from("bookings")
+        .insert(bookingData)
+        .select()
+        .single();
+
+      if (supabaseError) {
+        console.error("Detailed Supabase error:", {
+          message: supabaseError.message,
+          details: supabaseError.details,
+          hint: supabaseError.hint,
+          code: supabaseError.code,
+          fullError: supabaseError
+        });
+
+        // Show user-friendly error message
+        toast({
+          title: "Database Error Details",
+          description: `Error: ${supabaseError.message}. Code: ${supabaseError.code}. Check console for full details.`,
+          variant: "destructive",
+        });
+
+        throw new Error(`Database error: ${supabaseError.message}`);
+      }
+
+      console.log("Booking saved to Supabase:", insertedBooking);
+
+      // Step 2: Send confirmation email via Resend API
+      const serviceNames = formData.services.map(serviceId => {
+        const service = services.find(s => s.id === serviceId);
+        return service ? service.name : serviceId;
+      });
+
+      const emailSent = await sendBookingConfirmationEmail({
+        customerName: `${formData.firstName} ${formData.lastName}`.trim(),
+        customerEmail: formData.email,
+        services: serviceNames,
+        bookingDate: formData.date,
+        bookingTime: formData.time,
+        notes: formData.notes
+      });
+
+      if (!emailSent) {
+        console.warn("Email failed to send, but booking was saved successfully");
+      }
+
+      // Step 3: Show success message
       toast({
         title: "Booking Confirmed!",
-        description: "We'll be in touch soon to finalize your session.",
+        description: "Check your email for confirmation details. We'll be in touch soon!",
       });
 
       setShowConfirmation(false);
       navigate("/thank-you");
     } catch (error) {
+      console.error("Booking error:", error);
       toast({
         title: "Error",
-        description: "Something went wrong. Please try again.",
+        description: error instanceof Error ? error.message : "Something went wrong. Please try again.",
         variant: "destructive",
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -1207,6 +1560,44 @@ const BookingForm = () => {
                     </div>
                   </RadioGroup>
                 </div>
+
+                {/* Social Media Handles */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="instagramHandle" className="text-white">
+                      Instagram Handle
+                    </Label>
+                    <Input
+                      id="instagramHandle"
+                      value={formData.instagramHandle}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          instagramHandle: e.target.value,
+                        }))
+                      }
+                      className="bg-gray-800 border-gray-600 text-white"
+                      placeholder="@yourusername"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="tiktokHandle" className="text-white">
+                      TikTok Handle
+                    </Label>
+                    <Input
+                      id="tiktokHandle"
+                      value={formData.tiktokHandle}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          tiktokHandle: e.target.value,
+                        }))
+                      }
+                      className="bg-gray-800 border-gray-600 text-white"
+                      placeholder="@yourusername"
+                    />
+                  </div>
+                </div>
               </CardContent>
             </Card>
 
@@ -1355,6 +1746,21 @@ const BookingForm = () => {
           </form>
         )}
 
+        {/* Debug Test Button - Remove in production */}
+        <div className="fixed bottom-4 right-4 z-50">
+          <Button
+            onClick={() => {
+              const email = prompt("Enter your email address for testing:", "your-email@gmail.com");
+              if (email) {
+                testResendSMTP(email);
+              }
+            }}
+            className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded shadow-lg"
+          >
+            🧪 Test SMTP
+          </Button>
+        </div>
+
         <BookingConfirmationModal
           isOpen={showConfirmation}
           onClose={() => setShowConfirmation(false)}
@@ -1362,6 +1768,7 @@ const BookingForm = () => {
           bookingData={formData}
           services={services}
           addons={addons}
+          isSubmitting={isSubmitting}
         />
       </div>
     </div>

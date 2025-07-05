@@ -1,48 +1,52 @@
 #!/bin/bash
 
-echo "🚀 Starting YCEmpire deployment..."
+# YC Empire Booking System - Deployment Script
 
-# Check if Docker is installed
-if ! command -v docker &> /dev/null; then
-    echo "❌ Docker is not installed. Please install Docker first."
+echo "🚀 YC Empire Booking System - Vercel Deployment"
+echo "================================================"
+
+# Check if we're in the right directory
+if [ ! -f "package.json" ]; then
+    echo "❌ Error: Please run this script from the project root directory"
     exit 1
 fi
 
-# Check if Docker Compose is installed
-if ! command -v docker-compose &> /dev/null; then
-    echo "❌ Docker Compose is not installed. Please install Docker Compose first."
-    exit 1
+# Check for uncommitted changes
+if [ -n "$(git status --porcelain)" ]; then
+    echo "📝 Uncommitted changes detected. Committing..."
+    git add .
+    read -p "Enter commit message (or press Enter for default): " commit_msg
+    if [ -z "$commit_msg" ]; then
+        commit_msg="Deploy: Updated booking system for Vercel with Resend integration"
+    fi
+    git commit -m "$commit_msg"
+else
+    echo "✅ No uncommitted changes"
 fi
 
-# Stop any existing containers
-echo "🛑 Stopping existing containers..."
-docker-compose down
+# Push to remote
+echo "📤 Pushing to remote repository..."
+git push origin main
 
-# Build all images
-echo "🔨 Building all application images..."
-docker-compose build --no-cache
+# Navigate to bookings app
+cd apps/bookings
 
-# Start all services
-echo "🚀 Starting all services..."
-docker-compose up -d
+# Check if vercel is installed
+if ! command -v vercel &> /dev/null; then
+    echo "📦 Installing Vercel CLI..."
+    npm install -g vercel
+fi
 
-# Wait for services to be ready
-echo "⏳ Waiting for services to be ready..."
-sleep 10
+# Deploy to Vercel
+echo "🚀 Deploying to Vercel..."
+vercel --prod
 
-# Check if services are running
-echo "🔍 Checking service status..."
-docker-compose ps
-
-echo "✅ Deployment completed!"
 echo ""
-echo "🌐 Your applications are now available at:"
-echo "   Main App:     http://ycempire.com (port 3000)"
-echo "   Admin App:    http://admin.ycempire.com (port 3001)"
-echo "   Bookings App: http://bookings.ycempire.com (port 3002)"
-echo "   Rentals App:  http://rentals.ycempire.com (port 3003)"
-echo "   Links App:    http://links.ycempire.com (port 3004)"
+echo "✅ Deployment complete!"
 echo ""
-echo "📝 To view logs: docker-compose logs -f [service-name]"
-echo "📝 To stop: docker-compose down"
-echo "📝 To restart: docker-compose restart" 
+echo "🔧 Next steps:"
+echo "1. Set up environment variables in Vercel dashboard"
+echo "2. Configure Resend-Vercel integration"
+echo "3. Test the deployed application"
+echo ""
+echo "📖 For detailed instructions, see: apps/bookings/DEPLOYMENT.md"
