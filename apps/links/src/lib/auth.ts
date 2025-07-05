@@ -311,28 +311,22 @@ export async function sendWelcomeEmail(username: string, userEmail?: string): Pr
     const profileUrl = `https://links.ycempire.studio/${username}`;
     const emailTemplate = getWelcomeEmailTemplate(username, profileUrl);
 
-    // Send email via API endpoint
-    const response = await fetch('/api/send-email', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        to: userEmail,
-        subject: emailTemplate.subject,
-        html: emailTemplate.html,
-        text: emailTemplate.text
-      })
+    // For now, log the email content (can be integrated with email service later)
+    console.log('🎉 Welcome email ready to send:', {
+      to: userEmail,
+      subject: emailTemplate.subject,
+      profileUrl,
+      username
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error('Failed to send welcome email:', errorData);
-    } else {
-      const result = await response.json();
-      console.log('Welcome email sent successfully:', result.messageId);
-    }
+    // TODO: Integrate with email service when ready
+    // This can be done via:
+    // 1. Direct Resend API call
+    // 2. Serverless function
+    // 3. Backend email service
 
   } catch (error) {
-    console.error('Error sending welcome email:', error);
+    console.error('Error preparing welcome email:', error);
     // Don't throw error as this shouldn't block profile creation
   }
 }
@@ -344,28 +338,21 @@ export async function sendEmailConfirmation(email: string, confirmationUrl: stri
   try {
     const emailTemplate = getEmailConfirmationTemplate(confirmationUrl);
 
-    // Send email via API endpoint
-    const response = await fetch('/api/send-email', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        to: email,
-        subject: emailTemplate.subject,
-        html: emailTemplate.html,
-        text: emailTemplate.text
-      })
+    // For now, log the email content (can be integrated with email service later)
+    console.log('📧 Confirmation email ready to send:', {
+      to: email,
+      subject: emailTemplate.subject,
+      confirmationUrl
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error('Failed to send confirmation email:', errorData);
-    } else {
-      const result = await response.json();
-      console.log('Confirmation email sent successfully:', result.messageId);
-    }
+    // TODO: Integrate with email service when ready
+    // This can be done via:
+    // 1. Direct Resend API call
+    // 2. Serverless function
+    // 3. Backend email service
 
   } catch (error) {
-    console.error('Error sending confirmation email:', error);
+    console.error('Error preparing confirmation email:', error);
     // Don't throw error as this shouldn't block signup
   }
 }
