@@ -1,3 +1,155 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 262.1 83.3% 57.8%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 262.1 83.3% 57.8%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 262.1 83.3% 57.8%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 262.1 83.3% 57.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  /* Custom scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-gray-100 rounded-full;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded-full hover:bg-gray-400;
+  }
+
+  /* Mobile-first responsive utilities */
+  .container-mobile {
+    @apply w-full px-4 mx-auto;
+  }
+
+  @screen sm {
+    .container-mobile {
+      @apply px-6;
+    }
+  }
+
+  @screen lg {
+    .container-mobile {
+      @apply px-8;
+    }
+  }
+
+  /* Link button styles for public profiles */
+  .link-button {
+    @apply w-full p-4 rounded-lg border transition-all duration-200 hover:scale-105 hover:shadow-lg;
+  }
+
+  .link-button-light {
+    @apply bg-white border-gray-200 text-gray-900 hover:bg-gray-50;
+  }
+
+  .link-button-dark {
+    @apply bg-gray-800 border-gray-700 text-white hover:bg-gray-700;
+  }
+
+  /* Dashboard responsive grid */
+  .dashboard-grid {
+    @apply grid grid-cols-1 gap-6;
+  }
+
+  @screen md {
+    .dashboard-grid {
+      @apply grid-cols-2;
+    }
+  }
+
+  @screen lg {
+    .dashboard-grid {
+      @apply grid-cols-3;
+    }
+  }
+
+  /* Form responsive layout */
+  .form-grid {
+    @apply grid grid-cols-1 gap-4;
+  }
+
+  @screen md {
+    .form-grid {
+      @apply grid-cols-2;
+    }
+  }
+
+  /* Mobile navigation improvements */
+  .mobile-nav {
+    @apply fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 md:hidden;
+  }
+
+  /* Loading spinner */
+  .spinner {
+    @apply animate-spin rounded-full border-b-2 border-purple-500;
+  }
+
+  /* Gradient backgrounds */
+  .gradient-purple {
+    @apply bg-gradient-to-br from-purple-900 to-black;
+  }
+
+  .gradient-light {
+    @apply bg-gradient-to-br from-purple-100 to-pink-100;
+  }
+
+  .gradient-dark {
+    @apply bg-gradient-to-br from-gray-900 to-black;
+  }
+}
