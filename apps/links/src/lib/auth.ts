@@ -1,5 +1,6 @@
 import { supabase } from './supabase';
 import type { User } from './types';
+import { getEmailConfirmationTemplate, getWelcomeEmailTemplate } from './emailTemplates';
 
 export interface SignUpData {
   email: string;
@@ -294,5 +295,77 @@ export async function getUserProfileByUsername(username: string): Promise<User |
       throw error;
     }
     throw new AuthError('An unexpected error occurred while getting user profile');
+  }
+}
+
+/**
+ * Send welcome email after successful profile creation
+ */
+export async function sendWelcomeEmail(username: string, userEmail?: string): Promise<void> {
+  try {
+    if (!userEmail) {
+      console.log('No email provided for welcome email');
+      return;
+    }
+
+    const profileUrl = `https://links.ycempire.studio/${username}`;
+    const emailTemplate = getWelcomeEmailTemplate(username, profileUrl);
+
+    // Send email via API endpoint
+    const response = await fetch('/api/send-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        to: userEmail,
+        subject: emailTemplate.subject,
+        html: emailTemplate.html,
+        text: emailTemplate.text
+      })
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('Failed to send welcome email:', errorData);
+    } else {
+      const result = await response.json();
+      console.log('Welcome email sent successfully:', result.messageId);
+    }
+
+  } catch (error) {
+    console.error('Error sending welcome email:', error);
+    // Don't throw error as this shouldn't block profile creation
+  }
+}
+
+/**
+ * Send email confirmation email
+ */
+export async function sendEmailConfirmation(email: string, confirmationUrl: string): Promise<void> {
+  try {
+    const emailTemplate = getEmailConfirmationTemplate(confirmationUrl);
+
+    // Send email via API endpoint
+    const response = await fetch('/api/send-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        to: email,
+        subject: emailTemplate.subject,
+        html: emailTemplate.html,
+        text: emailTemplate.text
+      })
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('Failed to send confirmation email:', errorData);
+    } else {
+      const result = await response.json();
+      console.log('Confirmation email sent successfully:', result.messageId);
+    }
+
+  } catch (error) {
+    console.error('Error sending confirmation email:', error);
+    // Don't throw error as this shouldn't block signup
   }
 }

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import { useUsernameValidation, useUserProfile } from '@/hooks/useAuth';
+import { sendWelcomeEmail } from '@/lib/auth';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -58,31 +59,37 @@ export default function Onboarding() {
     if (!username) {
       setUsernameStatus('idle');
       clearValidationError();
+      setIsCheckingUsername(false);
       return;
     }
 
     const validationError = validateUsername(username);
     if (validationError) {
       setUsernameStatus('unavailable');
+      setIsCheckingUsername(false);
       return;
     }
 
     setIsCheckingUsername(true);
     setUsernameStatus('checking');
-    
+
     const timeoutId = setTimeout(async () => {
       try {
         const isAvailable = await checkAvailability(username);
         setUsernameStatus(isAvailable ? 'available' : 'unavailable');
       } catch (error) {
+        console.error('Error checking username availability:', error);
         setUsernameStatus('unavailable');
       } finally {
         setIsCheckingUsername(false);
       }
-    }, 500);
+    }, 800);
 
-    return () => clearTimeout(timeoutId);
-  }, [username, validateUsername, checkAvailability, clearValidationError]);
+    return () => {
+      clearTimeout(timeoutId);
+      setIsCheckingUsername(false);
+    };
+  }, [username]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -101,7 +108,15 @@ export default function Onboarding() {
         fullName: fullName || undefined,
         bio: bio || undefined,
       });
-      
+
+      // Send welcome email
+      try {
+        await sendWelcomeEmail(username, user.email);
+      } catch (emailError) {
+        console.error('Error sending welcome email:', emailError);
+        // Don't block navigation if email fails
+      }
+
       navigate('/dashboard');
     } catch (error) {
       console.error('Error creating profile:', error);
@@ -109,9 +124,11 @@ export default function Onboarding() {
   };
 
   const getUsernameStatusIcon = () => {
+    if (isCheckingUsername || usernameStatus === 'checking') {
+      return <Loader2 className="h-4 w-4 animate-spin text-blue-500" />;
+    }
+
     switch (usernameStatus) {
-      case 'checking':
-        return <Loader2 className="h-4 w-4 animate-spin text-gray-500" />;
       case 'available':
         return <CheckCircle className="h-4 w-4 text-green-500" />;
       case 'unavailable':
@@ -125,10 +142,12 @@ export default function Onboarding() {
     if (validationError) {
       return validationError;
     }
-    
+
+    if (isCheckingUsername || usernameStatus === 'checking') {
+      return 'Checking availability...';
+    }
+
     switch (usernameStatus) {
-      case 'checking':
-        return 'Checking availability...';
       case 'available':
         return 'Username is available!';
       case 'unavailable':

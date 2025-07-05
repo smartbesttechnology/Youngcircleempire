@@ -148,32 +148,42 @@ export function useUsernameValidation() {
   };
 
   const checkAvailability = async (username: string): Promise<boolean> => {
+    if (!username || username.length < 3) {
+      setError('Username must be at least 3 characters long');
+      setLoading(false);
+      return false;
+    }
+
     setLoading(true);
     setError(null);
-    
+
     try {
       const validationError = validateUsername(username);
       if (validationError) {
         setError(validationError);
+        setLoading(false);
         return false;
       }
 
       const isAvailable = await checkUsernameAvailability(username);
-      
+
       if (!isAvailable) {
         setError('Username is not available');
+      } else {
+        setError(null);
       }
-      
+
+      setLoading(false);
       return isAvailable;
     } catch (err) {
+      console.error('Username availability check error:', err);
       if (err instanceof AuthError) {
         setError(err.message);
       } else {
-        setError('An unexpected error occurred while checking username');
+        setError('Unable to check username availability. Please try again.');
       }
-      return false;
-    } finally {
       setLoading(false);
+      return false;
     }
   };
 
